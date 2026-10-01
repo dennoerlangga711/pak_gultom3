@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Ruang Baca - Perpustakaan Digital</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+
+<header class="header">
+
+    <div class="header-inner">
+
+        <a href="#" class="brand">
+
+            <div class="brand-symbol">
+                RB
+            </div>
+
+            <div class="brand-text">
+                <strong>RUANG BACA</strong>
+                <span>PERPUSTAKAAN DIGITAL</span>
+            </div>
+
+        </a>
+
+
+        <nav class="navigation">
+
+            <a href="#beranda" class="active">
+                Beranda
+            </a>
+
+            <a href="#koleksi">
+                Koleksi
+            </a>
+
+            <a href="#kategori">
+                Kategori
+            </a>
+
+            <a href="#tentang">
+                Tentang
+            </a>
+
+        </nav>
+
+
+        <div class="header-actions">
+
+            <button
+                class="history-btn"
+                onclick="lihatPeminjaman()"
+            >
+                Peminjaman
+            </button>
+
+            <button class="login-btn">
+                Masuk
+            </button>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- ================= HERO ================= -->
+
+<section class="hero" id="beranda">
+
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+
+        <span class="hero-label">
+            PERPUSTAKAAN DIGITAL
+        </span>
+
+        <h1>
+            Temukan buku.
+            <br>
+            Temukan <em>cerita.</em>
+        </h1>
+
+        <p>
+            Jelajahi koleksi buku pilihan untuk belajar,
+            membaca, dan memperluas wawasan Anda.
+        </p>
+
+
+        <div class="main-search">
+
+            <span>⌕</span>
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Cari judul buku, penulis, atau topik..."
+                oninput="cariBuku()"
+            >
+
+            <button onclick="cariBuku()">
+                Cari
+            </button>
+
+        </div>
+
+
+        <div class="popular-search">
+
+            <span>Pencarian populer:</span>
+
+            <button onclick="searchPopular('Novel')">
+                Novel
+            </button>
+
+            <button onclick="searchPopular('Sejarah')">
+                Sejarah
+            </button>
+
+            <button onclick="searchPopular('Informatika')">
+                Informatika
+            </button>
+
+            <button onclick="searchPopular('Matematika')">
+                Matematika
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= STATISTIK ================= -->
+
+<section class="quick-info">
+
+    <div class="info-item">
+
+        <strong id="totalBuku">
+            0
+        </strong>
+
+        <span>
+            Koleksi Buku
+        </span>
+
+    </div>
+
+
+    <div class="info-item">
+
+        <strong id="totalKategori">
+            0
+        </strong>
+
+        <span>
+            Kategori
+        </span>
+
+    </div>
+
+
+    <div class="info-item">
+
+        <strong id="totalPenulis">
+            0
+        </strong>
+
+        <span>
+            Penulis
+        </span>
+
+    </div>
+
+
+    <div class="info-item">
+
+        <strong id="totalTersedia">
+            0
+        </strong>
+
+        <span>
+            Buku Tersedia
+        </span>
+
+    </div>
+
+</section>
+
+
+<!-- ================= MAIN ================= -->
+
+<main>
+
+
+<!-- ================= KATEGORI ================= -->
+
+<section class="category-section" id="kategori">
+
+    <div class="section-top">
+
+        <div>
+
+            <span class="eyebrow">
+                JELAJAHI KOLEKSI
+            </span>
+
+            <h2>
+                Temukan berdasarkan kategori
+            </h2>
+
+        </div>
+
+        <p>
+            Pilih bidang yang ingin Anda baca
+        </p>
+
+    </div>
+
+
+    <div class="category-list">
+
+        <button
+            class="category-item active"
+            onclick="filterKategori('Semua', this)"
+        >
+            <span class="category-number">01</span>
+            <span>Semua Buku</span>
+            <small id="countSemua">0</small>
+        </button>
+
+
+        <button
+            class="category-item"
+            onclick="filterKategori('Novel', this)"
+        >
+            <span class="category-number">02</span>
+            <span>Novel</span>
+            <small>Fiksi</small>
+        </button>
+
+
+        <button
+            class="category-item"
+            onclick="filterKategori('Sejarah', this)"
+        >
+            <span class="category-number">03</span>
+            <span>Sejarah</span>
+            <small>Pengetahuan</small>
+        </button>
+
+
+        <button
+            class="category-item"
+            onclick="filterKategori('Matematika', this)"
+        >
+            <span class="category-number">04</span>
+            <span>Matematika</span>
+            <small>Sains</small>
+        </button>
+
+
+        <button
+            class="category-item"
+            onclick="filterKategori('Fisika', this)"
+        >
+            <span class="category-number">05</span>
+            <span>Fisika</span>
+            <small>Sains</small>
+        </button>
+
+
+        <button
+            class="category-item"
+            onclick="filterKategori('Biologi', this)"
+        >
+            <span class="category-number">06</span>
+            <span>Biologi</span>
+            <small>Sains</small>
+        </button>
+
+
+        <button
+            class="category-item"
+            onclick="filterKategori('Informatika', this)"
+        >
+            <span class="category-number">07</span>
+            <span>Informatika</span>
+            <small>Teknologi</small>
+        </button>
+
+
+        <button
+            class="category-item"
+            onclick="filterKategori('Teknologi', this)"
+        >
+            <span class="category-number">08</span>
+            <span>Teknologi</span>
+            <small>Digital</small>
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- ================= KOLEKSI ================= -->
+
+<section class="library-section" id="koleksi">
+
+    <div class="catalog-header">
+
+        <div>
+
+            <span class="eyebrow">
+                KATALOG PERPUSTAKAAN
+            </span>
+
+            <h2 id="catalogTitle">
+                Koleksi pilihan
+            </h2>
+
+        </div>
+
+
+        <div class="catalog-tools">
+
+            <span id="jumlahHasil">
+                0 buku
+            </span>
+
+            <select id="sortBook" onchange="urutkanBuku()">
+
+                <option value="terbaru">
+                    Terbaru
+                </option>
+
+                <option value="judul">
+                    Judul A-Z
+                </option>
+
+                <option value="penulis">
+                    Penulis A-Z
+                </option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+
+    <div id="bookGrid" class="book-grid"></div>
+
+</section>
+
+
+<!-- ================= ABOUT ================= -->
+
+<section class="about-section" id="tentang">
+
+    <div class="about-image">
+
+        <div class="library-window">
+
+            <div class="window-light"></div>
+
+            <div class="bookshelf">
+
+                <i></i>
+                <i></i>
+                <i></i>
+                <i></i>
+                <i></i>
+                <i></i>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="about-content">
+
+        <span class="eyebrow">
+            TENTANG RUANG BACA
+        </span>
+
+        <h2>
+            Sebuah ruang kecil
+            untuk pengetahuan
+            yang tak terbatas.
+        </h2>
+
+        <p>
+            Ruang Baca adalah konsep perpustakaan digital
+            yang dirancang untuk membuat proses menemukan
+            dan meminjam buku menjadi lebih mudah.
+        </p>
+
+        <p>
+            Koleksi disusun berdasarkan kategori sehingga
+            pembaca dapat menemukan buku yang sesuai
+            dengan kebutuhan mereka.
+        </p>
+
+        <button onclick="filterKategori('Semua')">
+            Jelajahi Koleksi →
+        </button>
+
+    </div>
+
+</section>
+
+
+</main>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <div class="footer-main">
+
+        <div class="footer-brand">
+
+            <strong>
+                RUANG BACA
+            </strong>
+
+            <p>
+                Perpustakaan digital untuk semua.
+            </p>
+
+        </div>
+
+
+        <div>
+
+            <h4>
+                Navigasi
+            </h4>
+
+            <a href="#beranda">
+                Beranda
+            </a>
+
+            <a href="#koleksi">
+                Koleksi
+            </a>
+
+            <a href="#kategori">
+                Kategori
+            </a>
+
+        </div>
+
+
+        <div>
+
+            <h4>
+                Informasi
+            </h4>
+
+            <a href="#tentang">
+                Tentang Kami
+            </a>
+
+            <a href="#">
+                Panduan
+            </a>
+
+            <a href="#">
+                Bantuan
+            </a>
+
+        </div>
+
+
+        <div>
+
+            <h4>
+                Jam Layanan
+            </h4>
+
+            <p>
+                Senin - Jumat
+            </p>
+
+            <p>
+                08.00 - 16.00 WIB
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+        <span>
+            © 2026 Ruang Baca
+        </span>
+
+        <span>
+            Perpustakaan Digital
+        </span>
+
+    </div>
+
+</footer>
+
+
+<!-- ================= DETAIL MODAL ================= -->
+
+<div id="detailModal" class="modal">
+
+    <div class="modal-box">
+
+        <button
+            class="modal-close"
+            onclick="tutupDetail()"
+        >
+            ×
+        </button>
+
+        <div id="detailContent"></div>
+
+    </div>
+
+</div>
+
+
+<!-- ================= PINJAM MODAL ================= -->
+
+<div id="borrowModal" class="modal">
+
+    <div class="modal-box small">
+
+        <button
+            class="modal-close"
+            onclick="tutupPinjam()"
+        >
+            ×
+        </button>
+
+        <div class="modal-heading">
+
+            <span class="eyebrow">
+                PEMINJAMAN
+            </span>
+
+            <h2>
+                Pinjam buku
+            </h2>
+
+            <p id="borrowBookName"></p>
+
+        </div>
+
+
+        <form onsubmit="prosesPeminjaman(event)">
+
+            <input
+                type="hidden"
+                id="borrowBookId"
+            >
+
+
+            <label>
+                Nama lengkap
+            </label>
+
+            <input
+                type="text"
+                id="borrowName"
+                placeholder="Masukkan nama Anda"
+                required
+            >
+
+
+            <label>
+                Kelas
+            </label>
+
+            <input
+                type="text"
+                id="borrowClass"
+                placeholder="Contoh: XI RPL 1"
+                required
+            >
+
+
+            <label>
+                Tanggal pengembalian
+            </label>
+
+            <input
+                type="date"
+                id="returnDate"
+                required
+            >
+
+
+            <button
+                type="submit"
+                class="submit-button"
+            >
+                Konfirmasi Peminjaman
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- ================= HISTORY MODAL ================= -->
+
+<div id="historyModal" class="modal">
+
+    <div class="modal-box history-box">
+
+        <button
+            class="modal-close"
+            onclick="tutupHistory()"
+        >
+            ×
+        </button>
+
+
+        <div class="modal-heading">
+
+            <span class="eyebrow">
+                AKTIVITAS
+            </span>
+
+            <h2>
+                Peminjaman saya
+            </h2>
+
+        </div>
+
+
+        <div id="historyContent"></div>
+
+    </div>
+
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
