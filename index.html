@@ -3,666 +3,820 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Ruang Baca - Perpustakaan Digital</title>
+    <title>Hotel Erlang - Sistem Parkir</title>
 
     <link rel="stylesheet" href="style.css">
+
+    <!-- Library untuk Export Excel -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
 </head>
 
 <body>
 
-<!-- ================= HEADER ================= -->
+    <!-- ================= LOGIN ================= -->
+    <section id="loginPage" class="login-page">
 
-<header class="header">
+        <div class="login-background"></div>
 
-    <div class="header-inner">
+        <div class="login-card">
 
-        <a href="#" class="brand">
-
-            <div class="brand-symbol">
-                RB
+            <div class="hotel-logo">
+                <div class="logo-icon">✦</div>
+                <h1>HOTEL ERLANG</h1>
+                <p>Parking Management System</p>
             </div>
 
-            <div class="brand-text">
-                <strong>RUANG BACA</strong>
-                <span>PERPUSTAKAAN DIGITAL</span>
-            </div>
-
-        </a>
-
-
-        <nav class="navigation">
-
-            <a href="#beranda" class="active">
-                Beranda
-            </a>
-
-            <a href="#koleksi">
-                Koleksi
-            </a>
-
-            <a href="#kategori">
-                Kategori
-            </a>
-
-            <a href="#tentang">
-                Tentang
-            </a>
-
-        </nav>
-
-
-        <div class="header-actions">
-
-            <button
-                class="history-btn"
-                onclick="lihatPeminjaman()"
-            >
-                Peminjaman
-            </button>
-
-            <button class="login-btn">
-                Masuk
-            </button>
-
-        </div>
-
-    </div>
-
-</header>
-
-
-<!-- ================= HERO ================= -->
-
-<section class="hero" id="beranda">
-
-    <div class="hero-overlay"></div>
-
-    <div class="hero-content">
-
-        <span class="hero-label">
-            PERPUSTAKAAN DIGITAL
-        </span>
-
-        <h1>
-            Temukan buku.
-            <br>
-            Temukan <em>cerita.</em>
-        </h1>
-
-        <p>
-            Jelajahi koleksi buku pilihan untuk belajar,
-            membaca, dan memperluas wawasan Anda.
-        </p>
-
-
-        <div class="main-search">
-
-            <span>⌕</span>
-
-            <input
-                type="text"
-                id="searchInput"
-                placeholder="Cari judul buku, penulis, atau topik..."
-                oninput="cariBuku()"
-            >
-
-            <button onclick="cariBuku()">
-                Cari
-            </button>
-
-        </div>
-
-
-        <div class="popular-search">
-
-            <span>Pencarian populer:</span>
-
-            <button onclick="searchPopular('Novel')">
-                Novel
-            </button>
-
-            <button onclick="searchPopular('Sejarah')">
-                Sejarah
-            </button>
-
-            <button onclick="searchPopular('Informatika')">
-                Informatika
-            </button>
-
-            <button onclick="searchPopular('Matematika')">
-                Matematika
-            </button>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- ================= STATISTIK ================= -->
-
-<section class="quick-info">
-
-    <div class="info-item">
-
-        <strong id="totalBuku">
-            0
-        </strong>
-
-        <span>
-            Koleksi Buku
-        </span>
-
-    </div>
-
-
-    <div class="info-item">
-
-        <strong id="totalKategori">
-            0
-        </strong>
-
-        <span>
-            Kategori
-        </span>
-
-    </div>
-
-
-    <div class="info-item">
-
-        <strong id="totalPenulis">
-            0
-        </strong>
-
-        <span>
-            Penulis
-        </span>
-
-    </div>
-
-
-    <div class="info-item">
-
-        <strong id="totalTersedia">
-            0
-        </strong>
-
-        <span>
-            Buku Tersedia
-        </span>
-
-    </div>
-
-</section>
-
-
-<!-- ================= MAIN ================= -->
-
-<main>
-
-
-<!-- ================= KATEGORI ================= -->
-
-<section class="category-section" id="kategori">
-
-    <div class="section-top">
-
-        <div>
-
-            <span class="eyebrow">
-                JELAJAHI KOLEKSI
-            </span>
-
-            <h2>
-                Temukan berdasarkan kategori
-            </h2>
-
-        </div>
-
-        <p>
-            Pilih bidang yang ingin Anda baca
-        </p>
-
-    </div>
-
-
-    <div class="category-list">
-
-        <button
-            class="category-item active"
-            onclick="filterKategori('Semua', this)"
-        >
-            <span class="category-number">01</span>
-            <span>Semua Buku</span>
-            <small id="countSemua">0</small>
-        </button>
-
-
-        <button
-            class="category-item"
-            onclick="filterKategori('Novel', this)"
-        >
-            <span class="category-number">02</span>
-            <span>Novel</span>
-            <small>Fiksi</small>
-        </button>
-
-
-        <button
-            class="category-item"
-            onclick="filterKategori('Sejarah', this)"
-        >
-            <span class="category-number">03</span>
-            <span>Sejarah</span>
-            <small>Pengetahuan</small>
-        </button>
-
-
-        <button
-            class="category-item"
-            onclick="filterKategori('Matematika', this)"
-        >
-            <span class="category-number">04</span>
-            <span>Matematika</span>
-            <small>Sains</small>
-        </button>
-
-
-        <button
-            class="category-item"
-            onclick="filterKategori('Fisika', this)"
-        >
-            <span class="category-number">05</span>
-            <span>Fisika</span>
-            <small>Sains</small>
-        </button>
-
-
-        <button
-            class="category-item"
-            onclick="filterKategori('Biologi', this)"
-        >
-            <span class="category-number">06</span>
-            <span>Biologi</span>
-            <small>Sains</small>
-        </button>
-
-
-        <button
-            class="category-item"
-            onclick="filterKategori('Informatika', this)"
-        >
-            <span class="category-number">07</span>
-            <span>Informatika</span>
-            <small>Teknologi</small>
-        </button>
-
-
-        <button
-            class="category-item"
-            onclick="filterKategori('Teknologi', this)"
-        >
-            <span class="category-number">08</span>
-            <span>Teknologi</span>
-            <small>Digital</small>
-        </button>
-
-    </div>
-
-</section>
-
-
-<!-- ================= KOLEKSI ================= -->
-
-<section class="library-section" id="koleksi">
-
-    <div class="catalog-header">
-
-        <div>
-
-            <span class="eyebrow">
-                KATALOG PERPUSTAKAAN
-            </span>
-
-            <h2 id="catalogTitle">
-                Koleksi pilihan
-            </h2>
-
-        </div>
-
-
-        <div class="catalog-tools">
-
-            <span id="jumlahHasil">
-                0 buku
-            </span>
-
-            <select id="sortBook" onchange="urutkanBuku()">
-
-                <option value="terbaru">
-                    Terbaru
-                </option>
-
-                <option value="judul">
-                    Judul A-Z
-                </option>
-
-                <option value="penulis">
-                    Penulis A-Z
-                </option>
-
-            </select>
-
-        </div>
-
-    </div>
-
-
-    <div id="bookGrid" class="book-grid"></div>
-
-</section>
-
-
-<!-- ================= ABOUT ================= -->
-
-<section class="about-section" id="tentang">
-
-    <div class="about-image">
-
-        <div class="library-window">
-
-            <div class="window-light"></div>
-
-            <div class="bookshelf">
-
-                <i></i>
-                <i></i>
-                <i></i>
-                <i></i>
-                <i></i>
-                <i></i>
-
+            <form id="loginForm">
+
+                <div class="input-group">
+                    <label>Username</label>
+                    <div class="input-box">
+                        <span>👤</span>
+                        <input
+                            type="text"
+                            id="username"
+                            placeholder="Masukkan username"
+                            autocomplete="off"
+                            required
+                        >
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Password</label>
+                    <div class="input-box">
+                        <span>🔒</span>
+                        <input
+                            type="password"
+                            id="password"
+                            placeholder="Masukkan password"
+                            required
+                        >
+                        <button type="button" id="showPassword">👁</button>
+                    </div>
+                </div>
+
+                <button type="submit" class="login-button">
+                    <span>Masuk ke Dashboard</span>
+                    <span>→</span>
+                </button>
+
+                <p id="loginError" class="login-error"></p>
+
+            </form>
+
+            <div class="login-footer">
+                <span>🔐 Admin Access</span>
+                <span>Hotel Erlang © 2026</span>
             </div>
 
         </div>
-
-    </div>
-
-
-    <div class="about-content">
-
-        <span class="eyebrow">
-            TENTANG RUANG BACA
-        </span>
-
-        <h2>
-            Sebuah ruang kecil
-            untuk pengetahuan
-            yang tak terbatas.
-        </h2>
-
-        <p>
-            Ruang Baca adalah konsep perpustakaan digital
-            yang dirancang untuk membuat proses menemukan
-            dan meminjam buku menjadi lebih mudah.
-        </p>
-
-        <p>
-            Koleksi disusun berdasarkan kategori sehingga
-            pembaca dapat menemukan buku yang sesuai
-            dengan kebutuhan mereka.
-        </p>
-
-        <button onclick="filterKategori('Semua')">
-            Jelajahi Koleksi →
-        </button>
-
-    </div>
-
-</section>
+    </section>
 
 
-</main>
+    <!-- ================= APLIKASI ================= -->
+    <section id="appPage" class="app-page hidden">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+
+            <div class="sidebar-logo">
+                <div class="small-logo">✦</div>
+                <div>
+                    <strong>HOTEL ERLANG</strong>
+                    <small>Parking System</small>
+                </div>
+            </div>
+
+            <div class="admin-profile">
+                <div class="avatar">D</div>
+                <div>
+                    <strong>Deno</strong>
+                    <small>Administrator</small>
+                </div>
+                <span class="online-dot"></span>
+            </div>
+
+            <nav class="menu">
+
+                <button class="menu-item active" data-page="dashboard">
+                    <span>▣</span>
+                    Dashboard
+                </button>
+
+                <button class="menu-item" data-page="rental">
+                    <span>🚗</span>
+                    Penyewaan Parkir
+                </button>
+
+                <button class="menu-item" data-page="payment">
+                    <span>💳</span>
+                    Pembayaran
+                </button>
+
+                <button class="menu-item" data-page="history">
+                    <span>▤</span>
+                    Riwayat Transaksi
+                </button>
+
+            </nav>
+
+            <div class="sidebar-bottom">
+
+                <div class="system-status">
+                    <span class="status-circle"></span>
+                    Sistem Online
+                </div>
+
+                <button id="logoutButton" class="logout-button">
+                    <span>↪</span>
+                    Keluar
+                </button>
+
+            </div>
+
+        </aside>
 
 
-<!-- ================= FOOTER ================= -->
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
 
-<footer>
+            <!-- TOPBAR -->
+            <header class="topbar">
 
-    <div class="footer-main">
+                <div>
+                    <div class="breadcrumb">Hotel Erlang / <span id="breadcrumbPage">Dashboard</span></div>
+                    <h2 id="pageTitle">Dashboard</h2>
+                </div>
 
-        <div class="footer-brand">
+                <div class="topbar-right">
 
-            <strong>
-                RUANG BACA
-            </strong>
+                    <div class="current-time">
+                        <span>🕐</span>
+                        <span id="currentTime">--:--:--</span>
+                    </div>
 
-            <p>
-                Perpustakaan digital untuk semua.
-            </p>
+                    <div class="notification">
+                        🔔
+                        <span></span>
+                    </div>
+
+                    <div class="top-avatar">D</div>
+
+                </div>
+
+            </header>
+
+
+            <!-- ================= DASHBOARD ================= -->
+            <section id="dashboardPage" class="content-page">
+
+                <div class="welcome-card">
+
+                    <div>
+                        <p class="welcome-small">SELAMAT DATANG KEMBALI 👋</p>
+                        <h1>Dashboard Hotel Erlang</h1>
+                        <p>
+                            Kelola seluruh aktivitas parkir hotel dengan mudah
+                            melalui sistem ini.
+                        </p>
+                    </div>
+
+                    <div class="welcome-icon">🏨</div>
+
+                </div>
+
+
+                <div class="stat-grid">
+
+                    <div class="stat-card blue">
+                        <div class="stat-icon">🚗</div>
+                        <div>
+                            <span>Total Kendaraan</span>
+                            <strong id="totalVehicles">0</strong>
+                            <small>Semua transaksi</small>
+                        </div>
+                    </div>
+
+                    <div class="stat-card green">
+                        <div class="stat-icon">🅿️</div>
+                        <div>
+                            <span>Parkir Aktif</span>
+                            <strong id="activeParking">0</strong>
+                            <small>Sedang berada di area</small>
+                        </div>
+                    </div>
+
+                    <div class="stat-card orange">
+                        <div class="stat-icon">💰</div>
+                        <div>
+                            <span>Pendapatan</span>
+                            <strong id="totalIncome">Rp 0</strong>
+                            <small>Total pembayaran</small>
+                        </div>
+                    </div>
+
+                    <div class="stat-card purple">
+                        <div class="stat-icon">🎫</div>
+                        <div>
+                            <span>Transaksi</span>
+                            <strong id="totalTransactions">0</strong>
+                            <small>Transaksi tersimpan</small>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="dashboard-grid">
+
+                    <div class="panel quick-panel">
+
+                        <div class="panel-header">
+                            <div>
+                                <h3>Akses Cepat</h3>
+                                <p>Pilih menu yang ingin digunakan</p>
+                            </div>
+                        </div>
+
+                        <div class="quick-actions">
+
+                            <button class="quick-button" data-page="rental">
+                                <span class="quick-icon blue-bg">🚗</span>
+                                <div>
+                                    <strong>Parkir Baru</strong>
+                                    <small>Daftarkan kendaraan</small>
+                                </div>
+                                <span>→</span>
+                            </button>
+
+                            <button class="quick-button" data-page="payment">
+                                <span class="quick-icon green-bg">💳</span>
+                                <div>
+                                    <strong>Pembayaran</strong>
+                                    <small>Bayar transaksi</small>
+                                </div>
+                                <span>→</span>
+                            </button>
+
+                            <button class="quick-button" data-page="history">
+                                <span class="quick-icon purple-bg">📊</span>
+                                <div>
+                                    <strong>Riwayat</strong>
+                                    <small>Lihat transaksi</small>
+                                </div>
+                                <span>→</span>
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="panel parking-panel">
+
+                        <div class="panel-header">
+                            <div>
+                                <h3>Status Slot Parkir</h3>
+                                <p>Kondisi area parkir saat ini</p>
+                            </div>
+                        </div>
+
+                        <div id="parkingStatus" class="parking-slots"></div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="panel recent-panel">
+
+                    <div class="panel-header">
+                        <div>
+                            <h3>Transaksi Terbaru</h3>
+                            <p>Aktivitas parkir terbaru</p>
+                        </div>
+
+                        <button class="text-button" data-page="history">
+                            Lihat Semua →
+                        </button>
+                    </div>
+
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Kode Tiket</th>
+                                    <th>Plat Nomor</th>
+                                    <th>Kendaraan</th>
+                                    <th>Waktu Masuk</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="recentTransactions"></tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= RENTAL ================= -->
+            <section id="rentalPage" class="content-page hidden">
+
+                <div class="section-heading">
+                    <div>
+                        <p class="section-label">TRANSAKSI BARU</p>
+                        <h1>Penyewaan Parkir</h1>
+                        <p>Daftarkan kendaraan yang akan memasuki area parkir Hotel Erlang.</p>
+                    </div>
+
+                    <div class="step-indicator">
+                        <span class="step active">1</span>
+                        <i></i>
+                        <span class="step active">2</span>
+                        <i></i>
+                        <span class="step">3</span>
+                    </div>
+                </div>
+
+
+                <div class="form-layout">
+
+                    <div class="panel form-panel">
+
+                        <div class="panel-title">
+                            <span class="title-number">01</span>
+                            <div>
+                                <h3>Informasi Kendaraan</h3>
+                                <p>Masukkan data kendaraan</p>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>Tipe Kendaraan</label>
+
+                            <div class="vehicle-options">
+
+                                <label class="vehicle-card">
+
+                                    <input
+                                        type="radio"
+                                        name="vehicleType"
+                                        value="Motor"
+                                        checked
+                                    >
+
+                                    <div class="vehicle-content">
+                                        <span class="vehicle-icon">🏍️</span>
+                                        <div>
+                                            <strong>Motor</strong>
+                                            <small>Rp 5.000 / jam</small>
+                                        </div>
+                                    </div>
+
+                                    <span class="check-mark">✓</span>
+
+                                </label>
+
+
+                                <label class="vehicle-card">
+
+                                    <input
+                                        type="radio"
+                                        name="vehicleType"
+                                        value="Mobil"
+                                    >
+
+                                    <div class="vehicle-content">
+                                        <span class="vehicle-icon">🚗</span>
+                                        <div>
+                                            <strong>Mobil</strong>
+                                            <small>Rp 10.000 / jam</small>
+                                        </div>
+                                    </div>
+
+                                    <span class="check-mark">✓</span>
+
+                                </label>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="plateNumber">Plat Nomor Kendaraan</label>
+
+                            <input
+                                type="text"
+                                id="plateNumber"
+                                class="form-input plate-input"
+                                placeholder="Contoh: BK 1234 AB"
+                                maxlength="12"
+                            >
+
+                            <small class="input-help">
+                                Masukkan nomor plat sesuai kendaraan.
+                            </small>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>Kategori Tamu</label>
+
+                            <div class="guest-options">
+
+                                <label class="guest-card">
+
+                                    <input
+                                        type="radio"
+                                        name="guestType"
+                                        value="Menginap"
+                                        checked
+                                    >
+
+                                    <div>
+                                        <span>🏨</span>
+                                        <strong>Menginap</strong>
+                                        <small>Gratis / termasuk fasilitas</small>
+                                    </div>
+
+                                </label>
+
+
+                                <label class="guest-card">
+
+                                    <input
+                                        type="radio"
+                                        name="guestType"
+                                        value="Non-Menginap"
+                                    >
+
+                                    <div>
+                                        <span>👤</span>
+                                        <strong>Non-Menginap</strong>
+                                        <small>Tarif normal</small>
+                                    </div>
+
+                                </label>
+
+
+                                <label class="guest-card">
+
+                                    <input
+                                        type="radio"
+                                        name="guestType"
+                                        value="VIP"
+                                    >
+
+                                    <div>
+                                        <span>⭐</span>
+                                        <strong>VIP</strong>
+                                        <small>Prioritas khusus</small>
+                                    </div>
+
+                                </label>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>Pilih Slot Parkir</label>
+
+                            <div id="rentalSlots" class="slot-selection"></div>
+
+                        </div>
+
+
+                        <div class="form-actions">
+
+                            <button id="resetRental" class="secondary-button">
+                                Reset
+                            </button>
+
+                            <button id="createTicket" class="primary-button">
+                                🎫 Buat Tiket Parkir
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="panel info-panel">
+
+                        <div class="info-header">
+                            <span>💡</span>
+                            <div>
+                                <h3>Informasi Parkir</h3>
+                                <p>Peraturan dan tarif</p>
+                            </div>
+                        </div>
+
+                        <div class="tariff-list">
+
+                            <div>
+                                <span>🏍️</span>
+                                <div>
+                                    <strong>Motor</strong>
+                                    <small>Rp 5.000 / jam</small>
+                                </div>
+                            </div>
+
+                            <div>
+                                <span>🚗</span>
+                                <div>
+                                    <strong>Mobil</strong>
+                                    <small>Rp 10.000 / jam</small>
+                                </div>
+                            </div>
+
+                            <div>
+                                <span>🏨</span>
+                                <div>
+                                    <strong>Tamu Menginap</strong>
+                                    <small>Gratis / Included</small>
+                                </div>
+                            </div>
+
+                            <div>
+                                <span>⭐</span>
+                                <div>
+                                    <strong>VIP</strong>
+                                    <small>Diskon 20%</small>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="info-warning">
+                            <strong>⚠ Perhatian</strong>
+                            <p>
+                                Pastikan plat nomor dan tipe kendaraan
+                                sudah benar sebelum membuat tiket.
+                            </p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= PAYMENT ================= -->
+            <section id="paymentPage" class="content-page hidden">
+
+                <div class="section-heading">
+
+                    <div>
+                        <p class="section-label">TRANSAKSI</p>
+                        <h1>Pembayaran Parkir</h1>
+                        <p>Cari tiket berdasarkan kode tiket atau plat nomor.</p>
+                    </div>
+
+                </div>
+
+
+                <div class="payment-search panel">
+
+                    <div class="search-icon">🔎</div>
+
+                    <div class="search-input-container">
+
+                        <label>Cari Tiket / Plat Nomor</label>
+
+                        <div class="search-row">
+
+                            <input
+                                type="text"
+                                id="paymentSearch"
+                                class="form-input"
+                                placeholder="Contoh: TKT-20261001-001 atau BK 1234 AB"
+                            >
+
+                            <button id="searchPayment" class="primary-button">
+                                Cari Data
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div id="paymentResult" class="hidden"></div>
+
+            </section>
+
+
+            <!-- ================= HISTORY ================= -->
+            <section id="historyPage" class="content-page hidden">
+
+                <div class="section-heading">
+
+                    <div>
+                        <p class="section-label">DATA TRANSAKSI</p>
+                        <h1>Riwayat Transaksi</h1>
+                        <p>Kelola dan export seluruh transaksi parkir.</p>
+                    </div>
+
+                    <button id="exportExcel" class="excel-button">
+                        📥 Export Excel
+                    </button>
+
+                </div>
+
+
+                <div class="history-stats">
+
+                    <div>
+                        <span>Total Data</span>
+                        <strong id="historyTotal">0</strong>
+                    </div>
+
+                    <div>
+                        <span>Sudah Bayar</span>
+                        <strong id="historyPaid">0</strong>
+                    </div>
+
+                    <div>
+                        <span>Belum Bayar</span>
+                        <strong id="historyUnpaid">0</strong>
+                    </div>
+
+                    <div>
+                        <span>Pendapatan</span>
+                        <strong id="historyIncome">Rp 0</strong>
+                    </div>
+
+                </div>
+
+
+                <div class="panel history-panel">
+
+                    <div class="history-toolbar">
+
+                        <div class="history-search">
+                            🔎
+                            <input
+                                type="text"
+                                id="historySearch"
+                                placeholder="Cari kode tiket atau plat..."
+                            >
+                        </div>
+
+                        <select id="historyFilter" class="filter-select">
+                            <option value="all">Semua Status</option>
+                            <option value="active">Aktif</option>
+                            <option value="paid">Sudah Bayar</option>
+                        </select>
+
+                    </div>
+
+
+                    <div class="table-wrapper">
+
+                        <table id="historyTable">
+
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Kode Tiket</th>
+                                    <th>Plat Nomor</th>
+                                    <th>Kendaraan</th>
+                                    <th>Tamu</th>
+                                    <th>Slot</th>
+                                    <th>Masuk</th>
+                                    <th>Keluar</th>
+                                    <th>Total</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="historyTableBody"></tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </section>
+
+
+    <!-- ================= TICKET MODAL ================= -->
+    <div id="ticketModal" class="modal hidden">
+
+        <div class="modal-overlay"></div>
+
+        <div class="ticket-modal">
+
+            <button class="modal-close" id="closeTicketModal">×</button>
+
+            <div class="ticket-success">
+                <div>✓</div>
+                <h2>Tiket Berhasil Dibuat!</h2>
+                <p>Kendaraan berhasil terdaftar di sistem.</p>
+            </div>
+
+            <div id="ticketPrintArea" class="ticket-paper">
+
+                <div class="ticket-header">
+                    <div class="ticket-logo">✦</div>
+                    <div>
+                        <h3>HOTEL ERLANG</h3>
+                        <p>PARKING TICKET</p>
+                    </div>
+                </div>
+
+                <div class="ticket-code">
+                    <small>KODE TIKET</small>
+                    <strong id="generatedTicketCode">TKT-000000</strong>
+                </div>
+
+                <div class="ticket-details">
+
+                    <div>
+                        <span>Plat Nomor</span>
+                        <strong id="ticketPlate">-</strong>
+                    </div>
+
+                    <div>
+                        <span>Kendaraan</span>
+                        <strong id="ticketVehicle">-</strong>
+                    </div>
+
+                    <div>
+                        <span>Kategori</span>
+                        <strong id="ticketGuest">-</strong>
+                    </div>
+
+                    <div>
+                        <span>Slot</span>
+                        <strong id="ticketSlot">-</strong>
+                    </div>
+
+                    <div>
+                        <span>Waktu Masuk</span>
+                        <strong id="ticketTime">-</strong>
+                    </div>
+
+                </div>
+
+                <div class="ticket-footer">
+                    Simpan tiket ini untuk proses pembayaran.
+                </div>
+
+            </div>
+
+            <div class="modal-actions">
+
+                <button id="printTicket" class="secondary-button">
+                    🖨 Cetak Tiket
+                </button>
+
+                <button id="closeTicket" class="primary-button">
+                    Selesai
+                </button>
+
+            </div>
 
         </div>
 
+    </div>
+
+
+    <!-- ================= TOAST ================= -->
+    <div id="toast" class="toast">
+
+        <span id="toastIcon">✓</span>
 
         <div>
-
-            <h4>
-                Navigasi
-            </h4>
-
-            <a href="#beranda">
-                Beranda
-            </a>
-
-            <a href="#koleksi">
-                Koleksi
-            </a>
-
-            <a href="#kategori">
-                Kategori
-            </a>
-
-        </div>
-
-
-        <div>
-
-            <h4>
-                Informasi
-            </h4>
-
-            <a href="#tentang">
-                Tentang Kami
-            </a>
-
-            <a href="#">
-                Panduan
-            </a>
-
-            <a href="#">
-                Bantuan
-            </a>
-
-        </div>
-
-
-        <div>
-
-            <h4>
-                Jam Layanan
-            </h4>
-
-            <p>
-                Senin - Jumat
-            </p>
-
-            <p>
-                08.00 - 16.00 WIB
-            </p>
-
+            <strong id="toastTitle">Berhasil</strong>
+            <p id="toastMessage">Data berhasil diproses.</p>
         </div>
 
     </div>
 
 
-    <div class="footer-bottom">
-
-        <span>
-            © 2026 Ruang Baca
-        </span>
-
-        <span>
-            Perpustakaan Digital
-        </span>
-
-    </div>
-
-</footer>
-
-
-<!-- ================= DETAIL MODAL ================= -->
-
-<div id="detailModal" class="modal">
-
-    <div class="modal-box">
-
-        <button
-            class="modal-close"
-            onclick="tutupDetail()"
-        >
-            ×
-        </button>
-
-        <div id="detailContent"></div>
-
-    </div>
-
-</div>
-
-
-<!-- ================= PINJAM MODAL ================= -->
-
-<div id="borrowModal" class="modal">
-
-    <div class="modal-box small">
-
-        <button
-            class="modal-close"
-            onclick="tutupPinjam()"
-        >
-            ×
-        </button>
-
-        <div class="modal-heading">
-
-            <span class="eyebrow">
-                PEMINJAMAN
-            </span>
-
-            <h2>
-                Pinjam buku
-            </h2>
-
-            <p id="borrowBookName"></p>
-
-        </div>
-
-
-        <form onsubmit="prosesPeminjaman(event)">
-
-            <input
-                type="hidden"
-                id="borrowBookId"
-            >
-
-
-            <label>
-                Nama lengkap
-            </label>
-
-            <input
-                type="text"
-                id="borrowName"
-                placeholder="Masukkan nama Anda"
-                required
-            >
-
-
-            <label>
-                Kelas
-            </label>
-
-            <input
-                type="text"
-                id="borrowClass"
-                placeholder="Contoh: XI RPL 1"
-                required
-            >
-
-
-            <label>
-                Tanggal pengembalian
-            </label>
-
-            <input
-                type="date"
-                id="returnDate"
-                required
-            >
-
-
-            <button
-                type="submit"
-                class="submit-button"
-            >
-                Konfirmasi Peminjaman
-            </button>
-
-        </form>
-
-    </div>
-
-</div>
-
-
-<!-- ================= HISTORY MODAL ================= -->
-
-<div id="historyModal" class="modal">
-
-    <div class="modal-box history-box">
-
-        <button
-            class="modal-close"
-            onclick="tutupHistory()"
-        >
-            ×
-        </button>
-
-
-        <div class="modal-heading">
-
-            <span class="eyebrow">
-                AKTIVITAS
-            </span>
-
-            <h2>
-                Peminjaman saya
-            </h2>
-
-        </div>
-
-
-        <div id="historyContent"></div>
-
-    </div>
-
-</div>
-
-
-<script src="script.js"></script>
+    <script src="script.js"></script>
 
 </body>
 </html>
