@@ -1,909 +1,794 @@
-// =====================================================
-// DATA BUKU
-// =====================================================
+/* =========================================================
+   HOTEL ERLANG - PARKING MANAGEMENT SYSTEM
+   ========================================================= */
 
-const buku = [
 
-    // ================= NOVEL =================
+/* ================= KONFIGURASI LOGIN ================= */
 
-    {
-        id: 1,
-        judul: "Laskar Pelangi",
-        penulis: "Andrea Hirata",
-        kategori: "Novel",
-        tahun: 2005,
-        halaman: 529,
-        stok: 5,
-        warna: "#526b61",
-        deskripsi: "Kisah perjuangan sekelompok anak Belitung dalam mendapatkan pendidikan dan mengejar cita-cita.",
-        rating: 4.8
-    },
+const ADMIN_USERNAME = "deno";
+const ADMIN_PASSWORD = "12345";
 
-    {
-        id: 2,
-        judul: "Bumi",
-        penulis: "Tere Liye",
-        kategori: "Novel",
-        tahun: 2014,
-        halaman: 440,
-        stok: 4,
-        warna: "#5b607d",
-        deskripsi: "Petualangan Raib dan teman-temannya menjelajahi dunia paralel yang penuh misteri.",
-        rating: 4.7
-    },
 
-    {
-        id: 3,
-        judul: "Negeri 5 Menara",
-        penulis: "Ahmad Fuadi",
-        kategori: "Novel",
-        tahun: 2009,
-        halaman: 424,
-        stok: 3,
-        warna: "#806449",
-        deskripsi: "Perjalanan enam sahabat yang belajar tentang pendidikan, persahabatan, dan mimpi.",
-        rating: 4.7
-    },
+/* ================= DATA PARKIR ================= */
 
-    {
-        id: 4,
-        judul: "Bumi Manusia",
-        penulis: "Pramoedya Ananta Toer",
-        kategori: "Novel",
-        tahun: 1980,
-        halaman: 535,
-        stok: 2,
-        warna: "#704d45",
-        deskripsi: "Kisah kehidupan Minke pada masa kolonial Hindia Belanda.",
-        rating: 4.9
-    },
+const TOTAL_SLOTS = 20;
 
-    {
-        id: 5,
-        judul: "Perahu Kertas",
-        penulis: "Dee Lestari",
-        kategori: "Novel",
-        tahun: 2009,
-        halaman: 444,
-        stok: 4,
-        warna: "#6c6170",
-        deskripsi: "Kisah perjalanan Kugy dan Keenan dalam menemukan cinta dan cita-cita.",
-        rating: 4.6
-    },
+const slots = [];
 
-    {
-        id: 6,
-        judul: "Ayat-Ayat Cinta",
-        penulis: "Habiburrahman El Shirazy",
-        kategori: "Novel",
-        tahun: 2004,
-        halaman: 419,
-        stok: 3,
-        warna: "#755e50",
-        deskripsi: "Kisah kehidupan Fahri yang penuh dengan perjuangan, pendidikan, dan cinta.",
-        rating: 4.7
-    },
-
-    {
-        id: 7,
-        judul: "Dilan 1990",
-        penulis: "Pidi Baiq",
-        kategori: "Novel",
-        tahun: 2014,
-        halaman: 332,
-        stok: 5,
-        warna: "#5c6673",
-        deskripsi: "Kisah cinta remaja antara Dilan dan Milea pada tahun 1990.",
-        rating: 4.5
-    },
-
-    {
-        id: 8,
-        judul: "Ronggeng Dukuh Paruk",
-        penulis: "Ahmad Tohari",
-        kategori: "Novel",
-        tahun: 1982,
-        halaman: 408,
-        stok: 2,
-        warna: "#705944",
-        deskripsi: "Kisah kehidupan masyarakat Dukuh Paruk dan seorang ronggeng bernama Srintil.",
-        rating: 4.8
-    },
-
-    {
-        id: 9,
-        judul: "Sang Pemimpi",
-        penulis: "Andrea Hirata",
-        kategori: "Novel",
-        tahun: 2006,
-        halaman: 288,
-        stok: 3,
-        warna: "#4f655f",
-        deskripsi: "Perjalanan tiga sahabat dalam mengejar impian untuk melanjutkan pendidikan.",
-        rating: 4.7
-    },
-
-    {
-        id: 10,
-        judul: "Pulang",
-        penulis: "Tere Liye",
-        kategori: "Novel",
-        tahun: 2015,
-        halaman: 400,
-        stok: 4,
-        warna: "#514e64",
-        deskripsi: "Kisah perjalanan hidup Bujang dan keluarganya dalam menghadapi dunia.",
-        rating: 4.7
-    },
-
-
-    // ================= SEJARAH =================
-
-    {
-        id: 11,
-        judul: "Sejarah Indonesia Modern",
-        penulis: "M.C. Ricklefs",
-        kategori: "Sejarah",
-        tahun: 2008,
-        halaman: 700,
-        stok: 3,
-        warna: "#536b69",
-        deskripsi: "Pembahasan mengenai perkembangan sejarah Indonesia dari masa awal hingga periode modern.",
-        rating: 4.6
-    },
-
-    {
-        id: 12,
-        judul: "Sejarah Dunia",
-        penulis: "J.M. Roberts",
-        kategori: "Sejarah",
-        tahun: 2017,
-        halaman: 620,
-        stok: 3,
-        warna: "#715c48",
-        deskripsi: "Gambaran perkembangan peradaban dan peristiwa penting dalam sejarah dunia.",
-        rating: 4.5
-    },
-
-    {
-        id: 13,
-        judul: "Sejarah Nasional Indonesia",
-        penulis: "Tim Sejarah Nasional",
-        kategori: "Sejarah",
-        tahun: 2019,
-        halaman: 580,
-        stok: 4,
-        warna: "#665442",
-        deskripsi: "Pembahasan perjalanan bangsa Indonesia dari masa kerajaan hingga kemerdekaan.",
-        rating: 4.6
-    },
-
-    {
-        id: 14,
-        judul: "Indonesia dalam Arus Sejarah",
-        penulis: "Tim Nasional Penulisan Sejarah",
-        kategori: "Sejarah",
-        tahun: 2018,
-        halaman: 540,
-        stok: 2,
-        warna: "#59685f",
-        deskripsi: "Membahas berbagai periode penting dalam perjalanan sejarah Indonesia.",
-        rating: 4.5
-    },
-
-    {
-        id: 15,
-        judul: "Perang Dunia II",
-        penulis: "Antony Beevor",
-        kategori: "Sejarah",
-        tahun: 2013,
-        halaman: 720,
-        stok: 3,
-        warna: "#555b5a",
-        deskripsi: "Pembahasan mengenai salah satu konflik terbesar dalam sejarah dunia.",
-        rating: 4.7
-    },
-
-    {
-        id: 16,
-        judul: "Sejarah Peradaban Dunia",
-        penulis: "Will Durant",
-        kategori: "Sejarah",
-        tahun: 2015,
-        halaman: 680,
-        stok: 2,
-        warna: "#74634f",
-        deskripsi: "Mengenal perkembangan berbagai peradaban besar dunia.",
-        rating: 4.5
-    },
-
-
-    // ================= MATEMATIKA =================
-
-    {
-        id: 17,
-        judul: "Matematika Dasar",
-        penulis: "Sukino",
-        kategori: "Matematika",
-        tahun: 2022,
-        halaman: 350,
-        stok: 5,
-        warna: "#4d6570",
-        deskripsi: "Materi dasar matematika yang membantu siswa memahami konsep perhitungan.",
-        rating: 4.6
-    },
-
-    {
-        id: 18,
-        judul: "Kalkulus Dasar",
-        penulis: "Purcell",
-        kategori: "Matematika",
-        tahun: 2020,
-        halaman: 510,
-        stok: 3,
-        warna: "#5d6b4f",
-        deskripsi: "Membahas limit, turunan, integral, dan konsep kalkulus dasar.",
-        rating: 4.5
-    },
-
-    {
-        id: 19,
-        judul: "Aljabar Linear",
-        penulis: "Howard Anton",
-        kategori: "Matematika",
-        tahun: 2021,
-        halaman: 480,
-        stok: 3,
-        warna: "#536578",
-        deskripsi: "Mempelajari konsep vektor, matriks, sistem persamaan dan ruang vektor.",
-        rating: 4.6
-    },
-
-    {
-        id: 20,
-        judul: "Statistika Dasar",
-        penulis: "Sugiyono",
-        kategori: "Matematika",
-        tahun: 2020,
-        halaman: 390,
-        stok: 5,
-        warna: "#64705d",
-        deskripsi: "Mengenal konsep dasar statistik dan pengolahan data.",
-        rating: 4.6
-    },
-
-    {
-        id: 21,
-        judul: "Geometri untuk SMA",
-        penulis: "Clemens",
-        kategori: "Matematika",
-        tahun: 2019,
-        halaman: 310,
-        stok: 3,
-        warna: "#655a6e",
-        deskripsi: "Membahas konsep geometri bidang dan ruang.",
-        rating: 4.4
-    },
-
-    {
-        id: 22,
-        judul: "Matematika Diskrit",
-        penulis: "Rinaldi Munir",
-        kategori: "Matematika",
-        tahun: 2021,
-        halaman: 450,
-        stok: 4,
-        warna: "#596c6c",
-        deskripsi: "Materi matematika diskrit yang banyak digunakan dalam bidang informatika.",
-        rating: 4.8
-    },
-
-
-    // ================= FISIKA =================
-
-    {
-        id: 23,
-        judul: "Fisika Dasar",
-        penulis: "Halliday",
-        kategori: "Fisika",
-        tahun: 2020,
-        halaman: 600,
-        stok: 4,
-        warna: "#515e75",
-        deskripsi: "Buku pengantar fisika yang membahas mekanika, energi, gelombang, dan listrik.",
-        rating: 4.7
-    },
-
-    {
-        id: 24,
-        judul: "Fisika untuk SMA",
-        penulis: "Marthen Kanginan",
-        kategori: "Fisika",
-        tahun: 2021,
-        halaman: 430,
-        stok: 4,
-        warna: "#65715e",
-        deskripsi: "Materi fisika untuk siswa sekolah menengah.",
-        rating: 4.5
-    },
-
-    {
-        id: 25,
-        judul: "Mekanika Dasar",
-        penulis: "Young dan Freedman",
-        kategori: "Fisika",
-        tahun: 2019,
-        halaman: 520,
-        stok: 3,
-        warna: "#566879",
-        deskripsi: "Membahas gerak, gaya, energi, momentum dan mekanika.",
-        rating: 4.7
-    },
-
-    {
-        id: 26,
-        judul: "Fisika Modern",
-        penulis: "Kenneth Krane",
-        kategori: "Fisika",
-        tahun: 2018,
-        halaman: 600,
-        stok: 2,
-        warna: "#5c6072",
-        deskripsi: "Pengantar mengenai relativitas, mekanika kuantum dan fisika modern.",
-        rating: 4.6
-    },
-
-    {
-        id: 27,
-        judul: "Listrik dan Magnet",
-        penulis: "Giancoli",
-        kategori: "Fisika",
-        tahun: 2020,
-        halaman: 490,
-        stok: 3,
-        warna: "#536b6a",
-        deskripsi: "Mempelajari konsep listrik, medan magnet dan elektromagnetisme.",
-        rating: 4.5
-    },
-
-
-    // ================= BIOLOGI =================
-
-    {
-        id: 28,
-        judul: "Biologi Dasar",
-        penulis: "Neil A. Campbell",
-        kategori: "Biologi",
-        tahun: 2021,
-        halaman: 550,
-        stok: 4,
-        warna: "#526a55",
-        deskripsi: "Membahas sel, genetika, evolusi, organisme dan ekosistem.",
-        rating: 4.8
-    },
-
-    {
-        id: 29,
-        judul: "Biologi untuk SMA",
-        penulis: "Irnaningtyas",
-        kategori: "Biologi",
-        tahun: 2022,
-        halaman: 480,
-        stok: 3,
-        warna: "#657c61",
-        deskripsi: "Materi biologi untuk siswa sekolah menengah.",
-        rating: 4.6
-    },
-
-    {
-        id: 30,
-        judul: "Genetika Dasar",
-        penulis: "Suryo",
-        kategori: "Biologi",
-        tahun: 2019,
-        halaman: 370,
-        stok: 3,
-        warna: "#596f5c",
-        deskripsi: "Mempelajari konsep pewarisan sifat dan genetika.",
-        rating: 4.5
-    },
-
-    {
-        id: 31,
-        judul: "Ekologi dan Lingkungan",
-        penulis: "Odum",
-        kategori: "Biologi",
-        tahun: 2020,
-        halaman: 430,
-        stok: 4,
-        warna: "#526c58",
-        deskripsi: "Mengenal hubungan organisme dengan lingkungan dan ekosistem.",
-        rating: 4.7
-    },
-
-    {
-        id: 32,
-        judul: "Anatomi Tubuh Manusia",
-        penulis: "Pearce",
-        kategori: "Biologi",
-        tahun: 2021,
-        halaman: 410,
-        stok: 2,
-        warna: "#765e5b",
-        deskripsi: "Membahas struktur dan fungsi organ tubuh manusia.",
-        rating: 4.6
-    },
-
-
-    // ================= INFORMATIKA =================
-
-    {
-        id: 33,
-        judul: "Pemrograman JavaScript",
-        penulis: "Eko Kurniawan",
-        kategori: "Informatika",
-        tahun: 2023,
-        halaman: 320,
-        stok: 5,
-        warna: "#555e70",
-        deskripsi: "Panduan mempelajari JavaScript dari dasar hingga membangun aplikasi web.",
-        rating: 4.8
-    },
-
-    {
-        id: 34,
-        judul: "Pemrograman Python",
-        penulis: "Abdul Kadir",
-        kategori: "Informatika",
-        tahun: 2022,
-        halaman: 400,
-        stok: 4,
-        warna: "#536b61",
-        deskripsi: "Buku pembelajaran Python untuk pemula dengan contoh pemrograman praktis.",
-        rating: 4.7
-    },
-
-    {
-        id: 35,
-        judul: "Algoritma dan Pemrograman",
-        penulis: "Rosa A.S.",
-        kategori: "Informatika",
-        tahun: 2022,
-        halaman: 450,
-        stok: 3,
-        warna: "#645c72",
-        deskripsi: "Mempelajari logika, algoritma, struktur data dan dasar pemrograman.",
-        rating: 4.7
-    },
-
-    {
-        id: 36,
-        judul: "HTML dan CSS",
-        penulis: "Rohi Abdulloh",
-        kategori: "Informatika",
-        tahun: 2021,
-        halaman: 280,
-        stok: 5,
-        warna: "#536a70",
-        deskripsi: "Panduan membuat tampilan website menggunakan HTML dan CSS.",
-        rating: 4.6
-    },
-
-    {
-        id: 37,
-        judul: "Basis Data",
-        penulis: "Fathansyah",
-        kategori: "Informatika",
-        tahun: 2020,
-        halaman: 390,
-        stok: 4,
-        warna: "#555f70",
-        deskripsi: "Mempelajari konsep database, tabel, relasi dan SQL.",
-        rating: 4.8
-    },
-
-    {
-        id: 38,
-        judul: "Rekayasa Perangkat Lunak",
-        penulis: "Pressman",
-        kategori: "Informatika",
-        tahun: 2019,
-        halaman: 700,
-        stok: 2,
-        warna: "#625a68",
-        deskripsi: "Membahas proses pengembangan perangkat lunak secara sistematis.",
-        rating: 4.7
-    },
-
-    {
-        id: 39,
-        judul: "Jaringan Komputer",
-        penulis: "Budi Sutedjo",
-        kategori: "Informatika",
-        tahun: 2021,
-        halaman: 420,
-        stok: 3,
-        warna: "#536b72",
-        deskripsi: "Mengenal konsep jaringan komputer, perangkat jaringan dan komunikasi data.",
-        rating: 4.6
-    },
-
-    {
-        id: 40,
-        judul: "Pemrograman Java",
-        penulis: "Kadir",
-        kategori: "Informatika",
-        tahun: 2022,
-        halaman: 460,
-        stok: 4,
-        warna: "#59646e",
-        deskripsi: "Panduan pemrograman Java untuk pemula.",
-        rating: 4.5
-    },
-
-
-    // ================= TEKNOLOGI =================
-
-    {
-        id: 41,
-        judul: "Artificial Intelligence",
-        penulis: "Stuart Russell",
-        kategori: "Teknologi",
-        tahun: 2021,
-        halaman: 700,
-        stok: 2,
-        warna: "#59616c",
-        deskripsi: "Pembahasan mengenai konsep kecerdasan buatan dan perkembangan teknologi AI.",
-        rating: 4.8
-    },
-
-    {
-        id: 42,
-        judul: "Teknologi Digital",
-        penulis: "Budi Raharjo",
-        kategori: "Teknologi",
-        tahun: 2023,
-        halaman: 300,
-        stok: 4,
-        warna: "#596c63",
-        deskripsi: "Mengenal perkembangan teknologi digital dan pengaruhnya terhadap kehidupan.",
-        rating: 4.5
-    },
-
-    {
-        id: 43,
-        judul: "Internet dan Teknologi",
-        penulis: "Richardus Eko Indrajit",
-        kategori: "Teknologi",
-        tahun: 2021,
-        halaman: 350,
-        stok: 3,
-        warna: "#536774",
-        deskripsi: "Membahas internet, teknologi informasi dan perkembangan dunia digital.",
-        rating: 4.6
-    },
-
-    {
-        id: 44,
-        judul: "Cloud Computing",
-        penulis: "Thomas Erl",
-        kategori: "Teknologi",
-        tahun: 2020,
-        halaman: 450,
-        stok: 2,
-        warna: "#59656d",
-        deskripsi: "Mengenal konsep komputasi awan dan penerapannya.",
-        rating: 4.5
-    },
-
-    {
-        id: 45,
-        judul: "Keamanan Siber",
-        penulis: "William Stallings",
-        kategori: "Teknologi",
-        tahun: 2022,
-        halaman: 520,
-        stok: 3,
-        warna: "#4f5d63",
-        deskripsi: "Pengantar keamanan komputer dan keamanan jaringan.",
-        rating: 4.7
-    },
-
-
-    // ================= EKONOMI =================
-
-    {
-        id: 46,
-        judul: "Pengantar Ekonomi",
-        penulis: "Sadono Sukirno",
-        kategori: "Ekonomi",
-        tahun: 2020,
-        halaman: 420,
-        stok: 3,
-        warna: "#6b604c",
-        deskripsi: "Mengenal konsep dasar ekonomi dan kegiatan ekonomi.",
-        rating: 4.6
-    },
-
-    {
-        id: 47,
-        judul: "Ekonomi Mikro",
-        penulis: "N. Gregory Mankiw",
-        kategori: "Ekonomi",
-        tahun: 2021,
-        halaman: 480,
-        stok: 3,
-        warna: "#5c6757",
-        deskripsi: "Membahas perilaku konsumen, perusahaan dan pasar.",
-        rating: 4.6
-    },
-
-    {
-        id: 48,
-        judul: "Manajemen Dasar",
-        penulis: "T. Hani Handoko",
-        kategori: "Ekonomi",
-        tahun: 2019,
-        halaman: 390,
-        stok: 4,
-        warna: "#6b5c52",
-        deskripsi: "Pengantar manajemen dan pengelolaan organisasi.",
-        rating: 4.5
-    },
-
-
-    // ================= PSIKOLOGI =================
-
-    {
-        id: 49,
-        judul: "Pengantar Psikologi",
-        penulis: "Sarlito W. Sarwono",
-        kategori: "Psikologi",
-        tahun: 2020,
-        halaman: 360,
-        stok: 3,
-        warna: "#695e68",
-        deskripsi: "Mengenal perilaku manusia dan dasar-dasar ilmu psikologi.",
-        rating: 4.6
-    },
-
-    {
-        id: 50,
-        judul: "Psikologi Remaja",
-        penulis: "Mohammad Ali",
-        kategori: "Psikologi",
-        tahun: 2021,
-        halaman: 330,
-        stok: 4,
-        warna: "#65706b",
-        deskripsi: "Membahas perkembangan psikologis dan sosial pada masa remaja.",
-        rating: 4.7
-    },
-
-    {
-        id: 51,
-        judul: "Psikologi Pendidikan",
-        penulis: "John W. Santrock",
-        kategori: "Psikologi",
-        tahun: 2020,
-        halaman: 510,
-        stok: 2,
-        warna: "#626477",
-        deskripsi: "Mempelajari hubungan antara psikologi dan proses pendidikan.",
-        rating: 4.6
-    },
-
-
-    // ================= BAHASA =================
-
-    {
-        id: 52,
-        judul: "Bahasa Indonesia untuk SMA",
-        penulis: "Kosasih",
-        kategori: "Bahasa",
-        tahun: 2022,
-        halaman: 310,
-        stok: 5,
-        warna: "#645d50",
-        deskripsi: "Materi bahasa Indonesia untuk siswa sekolah menengah.",
-        rating: 4.6
-    },
-
-    {
-        id: 53,
-        judul: "English Grammar",
-        penulis: "Raymond Murphy",
-        kategori: "Bahasa",
-        tahun: 2021,
-        halaman: 380,
-        stok: 4,
-        warna: "#53656d",
-        deskripsi: "Panduan tata bahasa Inggris dari tingkat dasar hingga menengah.",
-        rating: 4.8
-    },
-
-    {
-        id: 54,
-        judul: "Kamus Bahasa Indonesia",
-        penulis: "Badan Bahasa",
-        kategori: "Bahasa",
-        tahun: 2023,
-        halaman: 900,
-        stok: 2,
-        warna: "#5c584d",
-        deskripsi: "Kamus untuk membantu memahami kosakata bahasa Indonesia.",
-        rating: 4.7
-    },
-
-
-    // ================= AGAMA =================
-
-    {
-        id: 55,
-        judul: "Pendidikan Agama Islam",
-        penulis: "Abdul Majid",
-        kategori: "Agama",
-        tahun: 2021,
-        halaman: 350,
-        stok: 4,
-        warna: "#52675b",
-        deskripsi: "Materi pendidikan agama Islam untuk pelajar.",
-        rating: 4.7
-    },
-
-    {
-        id: 56,
-        judul: "Akhlak dan Kehidupan",
-        penulis: "Yunahar Ilyas",
-        kategori: "Agama",
-        tahun: 2020,
-        halaman: 290,
-        stok: 3,
-        warna: "#66715b",
-        deskripsi: "Pembahasan mengenai akhlak dan penerapannya dalam kehidupan sehari-hari.",
-        rating: 4.6
-    },
-
-
-    // ================= PENDIDIKAN =================
-
-    {
-        id: 57,
-        judul: "Metode Pembelajaran",
-        penulis: "Slameto",
-        kategori: "Pendidikan",
-        tahun: 2020,
-        halaman: 360,
-        stok: 3,
-        warna: "#5c6670",
-        deskripsi: "Membahas berbagai metode pembelajaran yang dapat diterapkan di sekolah.",
-        rating: 4.5
-    },
-
-    {
-        id: 58,
-        judul: "Strategi Belajar Efektif",
-        penulis: "Dimyati",
-        kategori: "Pendidikan",
-        tahun: 2021,
-        halaman: 280,
-        stok: 4,
-        warna: "#657064",
-        deskripsi: "Panduan untuk meningkatkan efektivitas kegiatan belajar.",
-        rating: 4.6
-    },
-
-
-    // ================= SENI =================
-
-    {
-        id: 59,
-        judul: "Seni dan Budaya Indonesia",
-        penulis: "Eko Supriyadi",
-        kategori: "Seni",
-        tahun: 2020,
-        halaman: 340,
-        stok: 3,
-        warna: "#765e51",
-        deskripsi: "Mengenal berbagai seni dan budaya yang berkembang di Indonesia.",
-        rating: 4.7
-    },
-
-    {
-        id: 60,
-        judul: "Dasar-Dasar Desain",
-        penulis: "Surianto Rustan",
-        kategori: "Seni",
-        tahun: 2022,
-        halaman: 310,
-        stok: 4,
-        warna: "#5c626e",
-        deskripsi: "Pengantar prinsip dasar desain dan komunikasi visual.",
-        rating: 4.6
-    }
-
-];
-
-
-// =====================================================
-// VARIABEL
-// =====================================================
-
-let daftarTampilan = [...buku];
-
-let peminjaman =
-    JSON.parse(
-        localStorage.getItem("ruangBacaPeminjaman")
-    ) || [];
-
-
-// =====================================================
-// MEMBUAT COVER BUKU
-// =====================================================
-
-function buatCover(item) {
-
-    return `
-
-        <div
-            class="cover-paper"
-            style="background:${item.warna}"
-        >
-
-            <div class="cover-category">
-                ${item.kategori}
-            </div>
-
-            <div class="cover-title">
-                ${item.judul}
-            </div>
-
-            <div class="cover-author">
-                ${item.penulis}
-            </div>
-
-        </div>
-
-    `;
+for (let i = 1; i <= TOTAL_SLOTS; i++) {
+    slots.push(`A${String(i).padStart(2, "0")}`);
 }
 
 
-// =====================================================
-// TAMPILKAN BUKU
-// =====================================================
+/* ================= ELEMENT ================= */
 
-function tampilkanBuku(data) {
+const loginPage = document.getElementById("loginPage");
+const appPage = document.getElementById("appPage");
 
-    const grid =
-        document.getElementById("bookGrid");
+const loginForm = document.getElementById("loginForm");
+const usernameInput = document.getElementById("username");
+const passwordInput = document.getElementById("password");
+const loginError = document.getElementById("loginError");
 
-    grid.innerHTML = "";
+const showPassword = document.getElementById("showPassword");
 
-    document.getElementById("jumlahHasil").innerText =
-        `${data.length} buku`;
+const logoutButton = document.getElementById("logoutButton");
+
+const menuItems = document.querySelectorAll(".menu-item");
+const pageButtons = document.querySelectorAll("[data-page]");
+
+const pageTitle = document.getElementById("pageTitle");
+const breadcrumbPage = document.getElementById("breadcrumbPage");
+
+const pages = {
+    dashboard: document.getElementById("dashboardPage"),
+    rental: document.getElementById("rentalPage"),
+    payment: document.getElementById("paymentPage"),
+    history: document.getElementById("historyPage")
+};
 
 
-    if (data.length === 0) {
+/* ================= DATA LOCAL STORAGE ================= */
 
-        grid.innerHTML = `
+let transactions = JSON.parse(
+    localStorage.getItem("hotelErlangTransactions")
+) || [];
 
+
+/* ================= FORMAT RUPIAH ================= */
+
+function formatRupiah(number) {
+
+    return new Intl.NumberFormat("id-ID", {
+        style: "currency",
+        currency: "IDR",
+        maximumFractionDigits: 0
+    }).format(number);
+
+}
+
+
+/* ================= FORMAT TANGGAL ================= */
+
+function formatDate(dateString) {
+
+    const date = new Date(dateString);
+
+    return date.toLocaleString("id-ID", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit"
+    });
+
+}
+
+
+/* ================= GENERATE KODE TIKET ================= */
+
+function generateTicketCode() {
+
+    const now = new Date();
+
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, "0");
+    const day = String(now.getDate()).padStart(2, "0");
+
+    const random = Math.floor(100 + Math.random() * 900);
+
+    return `TKT-${year}${month}${day}-${random}`;
+
+}
+
+
+/* ================= LOGIN ================= */
+
+loginForm.addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    const username = usernameInput.value.trim();
+    const password = passwordInput.value;
+
+    if (
+        username === ADMIN_USERNAME &&
+        password === ADMIN_PASSWORD
+    ) {
+
+        loginError.textContent = "";
+
+        loginPage.classList.add("hidden");
+        appPage.classList.remove("hidden");
+
+        showToast(
+            "Login Berhasil",
+            "Selamat datang di Sistem Hotel Erlang.",
+            "✓"
+        );
+
+        updateDashboard();
+
+    } else {
+
+        loginError.textContent =
+            "Username atau password salah.";
+
+        passwordInput.value = "";
+
+    }
+
+});
+
+
+/* ================= SHOW PASSWORD ================= */
+
+showPassword.addEventListener("click", function() {
+
+    if (passwordInput.type === "password") {
+
+        passwordInput.type = "text";
+        showPassword.textContent = "🙈";
+
+    } else {
+
+        passwordInput.type = "password";
+        showPassword.textContent = "👁";
+
+    }
+
+});
+
+
+/* ================= LOGOUT ================= */
+
+logoutButton.addEventListener("click", function() {
+
+    appPage.classList.add("hidden");
+    loginPage.classList.remove("hidden");
+
+    usernameInput.value = "";
+    passwordInput.value = "";
+
+    navigateTo("dashboard");
+
+});
+
+
+/* ================= NAVIGASI ================= */
+
+pageButtons.forEach(button => {
+
+    button.addEventListener("click", function() {
+
+        const page = this.dataset.page;
+
+        navigateTo(page);
+
+    });
+
+});
+
+
+function navigateTo(page) {
+
+    Object.values(pages).forEach(element => {
+        element.classList.add("hidden");
+    });
+
+    if (pages[page]) {
+        pages[page].classList.remove("hidden");
+    }
+
+    menuItems.forEach(item => {
+
+        item.classList.remove("active");
+
+        if (item.dataset.page === page) {
+            item.classList.add("active");
+        }
+
+    });
+
+    const titles = {
+        dashboard: "Dashboard",
+        rental: "Penyewaan Parkir",
+        payment: "Pembayaran",
+        history: "Riwayat Transaksi"
+    };
+
+    pageTitle.textContent = titles[page];
+    breadcrumbPage.textContent = titles[page];
+
+    if (page === "dashboard") {
+        updateDashboard();
+    }
+
+    if (page === "rental") {
+        renderRentalSlots();
+    }
+
+    if (page === "history") {
+        renderHistory();
+    }
+
+}
+
+
+/* ================= JAM ================= */
+
+function updateClock() {
+
+    const now = new Date();
+
+    document.getElementById("currentTime").textContent =
+        now.toLocaleTimeString("id-ID");
+
+}
+
+setInterval(updateClock, 1000);
+
+updateClock();
+
+
+/* ================= STATUS SLOT ================= */
+
+function getOccupiedSlots() {
+
+    return transactions
+        .filter(transaction => transaction.status === "active")
+        .map(transaction => transaction.slot);
+
+}
+
+
+/* ================= RENDER SLOT DASHBOARD ================= */
+
+function renderParkingStatus() {
+
+    const container =
+        document.getElementById("parkingStatus");
+
+    const occupied = getOccupiedSlots();
+
+    container.innerHTML = "";
+
+    slots.forEach(slot => {
+
+        const isOccupied = occupied.includes(slot);
+
+        const element = document.createElement("div");
+
+        element.className =
+            isOccupied
+                ? "slot occupied"
+                : "slot";
+
+        element.innerHTML = `
+            <span>${isOccupied ? "🚗" : "🅿️"}</span>
+            ${slot}
+        `;
+
+        container.appendChild(element);
+
+    });
+
+}
+
+
+/* ================= RENTAL SLOT ================= */
+
+let selectedSlot = null;
+
+
+function renderRentalSlots() {
+
+    const container =
+        document.getElementById("rentalSlots");
+
+    const occupied = getOccupiedSlots();
+
+    container.innerHTML = "";
+
+    slots.forEach(slot => {
+
+        const button = document.createElement("button");
+
+        button.type = "button";
+
+        button.className = "slot-choice";
+
+        if (occupied.includes(slot)) {
+
+            button.classList.add("occupied");
+            button.textContent = `${slot} • Penuh`;
+            button.disabled = true;
+
+        } else {
+
+            button.textContent = slot;
+
+            if (selectedSlot === slot) {
+                button.classList.add("selected");
+            }
+
+            button.addEventListener("click", function() {
+
+                selectedSlot = slot;
+
+                renderRentalSlots();
+
+            });
+
+        }
+
+        container.appendChild(button);
+
+    });
+
+}
+
+
+/* ================= RESET FORM ================= */
+
+document
+    .getElementById("resetRental")
+    .addEventListener("click", resetRentalForm);
+
+
+function resetRentalForm() {
+
+    document.querySelector(
+        'input[name="vehicleType"][value="Motor"]'
+    ).checked = true;
+
+    document.querySelector(
+        'input[name="guestType"][value="Menginap"]'
+    ).checked = true;
+
+    document.getElementById("plateNumber").value = "";
+
+    selectedSlot = null;
+
+    renderRentalSlots();
+
+}
+
+
+/* ================= BUAT TIKET ================= */
+
+document
+    .getElementById("createTicket")
+    .addEventListener("click", createTicket);
+
+
+function createTicket() {
+
+    const plate =
+        document.getElementById("plateNumber")
+        .value
+        .trim()
+        .toUpperCase();
+
+    const vehicle =
+        document.querySelector(
+            'input[name="vehicleType"]:checked'
+        ).value;
+
+    const guest =
+        document.querySelector(
+            'input[name="guestType"]:checked'
+        ).value;
+
+
+    if (!plate) {
+
+        showToast(
+            "Data Belum Lengkap",
+            "Masukkan plat nomor kendaraan.",
+            "!"
+        );
+
+        return;
+    }
+
+
+    if (!selectedSlot) {
+
+        showToast(
+            "Slot Belum Dipilih",
+            "Silakan pilih slot parkir terlebih dahulu.",
+            "!"
+        );
+
+        return;
+    }
+
+
+    const duplicatePlate = transactions.find(
+        transaction =>
+            transaction.plate === plate &&
+            transaction.status === "active"
+    );
+
+
+    if (duplicatePlate) {
+
+        showToast(
+            "Kendaraan Sudah Terdaftar",
+            "Plat nomor tersebut masih berada di area parkir.",
+            "!"
+        );
+
+        return;
+    }
+
+
+    const ticketCode = generateTicketCode();
+
+    const now = new Date();
+
+    const transaction = {
+
+        id: Date.now(),
+
+        ticketCode: ticketCode,
+
+        plate: plate,
+
+        vehicle: vehicle,
+
+        guest: guest,
+
+        slot: selectedSlot,
+
+        entryTime: now.toISOString(),
+
+        exitTime: null,
+
+        duration: 0,
+
+        total: 0,
+
+        paymentMethod: null,
+
+        status: "active"
+
+    };
+
+
+    transactions.unshift(transaction);
+
+    saveTransactions();
+
+
+    showTicketModal(transaction);
+
+    resetRentalForm();
+
+    updateDashboard();
+
+}
+
+
+/* ================= SIMPAN DATA ================= */
+
+function saveTransactions() {
+
+    localStorage.setItem(
+        "hotelErlangTransactions",
+        JSON.stringify(transactions)
+    );
+
+}
+
+
+/* ================= MODAL TIKET ================= */
+
+function showTicketModal(transaction) {
+
+    document.getElementById("generatedTicketCode")
+        .textContent = transaction.ticketCode;
+
+    document.getElementById("ticketPlate")
+        .textContent = transaction.plate;
+
+    document.getElementById("ticketVehicle")
+        .textContent = transaction.vehicle;
+
+    document.getElementById("ticketGuest")
+        .textContent = transaction.guest;
+
+    document.getElementById("ticketSlot")
+        .textContent = transaction.slot;
+
+    document.getElementById("ticketTime")
+        .textContent = formatDate(transaction.entryTime);
+
+
+    document
+        .getElementById("ticketModal")
+        .classList.remove("hidden");
+
+}
+
+
+function closeTicketModal() {
+
+    document
+        .getElementById("ticketModal")
+        .classList.add("hidden");
+
+}
+
+
+document
+    .getElementById("closeTicketModal")
+    .addEventListener("click", closeTicketModal);
+
+document
+    .getElementById("closeTicketModal")
+    .addEventListener("click", closeTicketModal);
+
+document
+    .getElementById("closeTicket")
+    .addEventListener("click", closeTicketModal);
+
+document
+    .querySelector(".modal-overlay")
+    .addEventListener("click", closeTicketModal);
+
+
+/* ================= PRINT TIKET ================= */
+
+document
+    .getElementById("printTicket")
+    .addEventListener("click", function() {
+
+        const printContent =
+            document.getElementById("ticketPrintArea")
+            .innerHTML;
+
+        const printWindow =
+            window.open("", "", "width=500,height=700");
+
+        printWindow.document.write(`
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <title>Tiket Parkir Hotel Erlang</title>
+
+                <style>
+
+                    body {
+                        font-family: Arial, sans-serif;
+                        padding: 30px;
+                    }
+
+                    .ticket {
+                        max-width: 350px;
+                        margin: auto;
+                    }
+
+                    h3 {
+                        text-align: center;
+                    }
+
+                    .ticket-header {
+                        text-align: center;
+                        padding-bottom: 15px;
+                        border-bottom: 1px dashed #aaa;
+                    }
+
+                    .ticket-code {
+                        text-align: center;
+                        padding: 20px;
+                    }
+
+                    .ticket-code strong {
+                        font-size: 20px;
+                    }
+
+                    .ticket-details div {
+                        padding: 10px;
+                    }
+
+                    .ticket-details span {
+                        display: block;
+                        font-size: 11px;
+                        color: #777;
+                    }
+
+                    .ticket-details strong {
+                        display: block;
+                        margin-top: 4px;
+                    }
+
+                    .ticket-footer {
+                        margin-top: 20px;
+                        padding-top: 15px;
+                        border-top: 1px dashed #aaa;
+                        text-align: center;
+                        font-size: 10px;
+                    }
+
+                </style>
+
+            </head>
+
+            <body>
+
+                <div class="ticket">
+
+                    ${printContent}
+
+                </div>
+
+            </body>
+
+            </html>
+        `);
+
+        printWindow.document.close();
+
+        printWindow.focus();
+
+        setTimeout(() => {
+
+            printWindow.print();
+            printWindow.close();
+
+        }, 500);
+
+    });
+
+
+/* ================= CARI PEMBAYARAN ================= */
+
+document
+    .getElementById("searchPayment")
+    .addEventListener("click", searchPayment);
+
+
+document
+    .getElementById("paymentSearch")
+    .addEventListener("keydown", function(event) {
+
+        if (event.key === "Enter") {
+            searchPayment();
+        }
+
+    });
+
+
+function searchPayment() {
+
+    const keyword =
+        document.getElementById("paymentSearch")
+        .value
+        .trim()
+        .toUpperCase();
+
+
+    if (!keyword) {
+
+        showToast(
+            "Masukkan Data",
+            "Masukkan kode tiket atau plat nomor.",
+            "!"
+        );
+
+        return;
+
+    }
+
+
+    const transaction = transactions.find(item =>
+
+        item.ticketCode.toUpperCase() === keyword ||
+
+        item.plate.toUpperCase() === keyword
+
+    );
+
+
+    const result =
+        document.getElementById("paymentResult");
+
+
+    if (!transaction) {
+
+        result.className = "panel";
+        result.innerHTML = `
             <div style="
-                grid-column:1/-1;
                 text-align:center;
-                padding:80px 20px;
-                border:1px solid #e5e0d8;
-                background:white;
+                padding:30px;
+                color:#dc2626;
             ">
+                <div style="font-size:35px;">❌</div>
 
-                <h2 style="
-                    font-family:'Playfair Display',serif;
-                    margin-bottom:10px;
+                <h3 style="margin-top:10px;">
+                    Data Tidak Ditemukan
+                </h3>
+
+                <p style="
+                    margin-top:5px;
+                    font-size:11px;
+                    color:#64748b;
                 ">
-                    Tidak ada buku
-                </h2>
+                    Pastikan kode tiket atau plat nomor benar.
+                </p>
+            </div>
+        `;
 
-                <p style="color:#888">
-                    Coba gunakan kata pencarian yang berbeda.
+        return;
+    }
+
+
+    renderPayment(transaction);
+
+}
+
+
+/* ================= TAMPILKAN PEMBAYARAN ================= */
+
+function renderPayment(transaction) {
+
+    const result =
+        document.getElementById("paymentResult");
+
+    if (transaction.status === "paid") {
+
+        result.className = "panel payment-card";
+
+        result.innerHTML = `
+
+            <div style="text-align:center;padding:20px;">
+
+                <div style="
+                    width:55px;
+                    height:55px;
+                    margin:auto;
+                    border-radius:50%;
+                    background:#dcfce7;
+                    display:flex;
+                    align-items:center;
+                    justify-content:center;
+                    font-size:25px;
+                ">
+                    ✓
+                </div>
+
+                <h3 style="margin-top:12px;">
+                    Transaksi Sudah Dibayar
+                </h3>
+
+                <p style="
+                    margin-top:5px;
+                    color:#64748b;
+                    font-size:11px;
+                ">
+                    Kode tiket: ${transaction.ticketCode}
                 </p>
 
             </div>
@@ -911,403 +796,193 @@ function tampilkanBuku(data) {
         `;
 
         return;
+
     }
 
 
-    data.forEach(item => {
+    const exitTime = new Date();
 
-        const tersedia = item.stok > 0;
+    const entryTime =
+        new Date(transaction.entryTime);
 
 
-        grid.innerHTML += `
+    let duration =
+        Math.ceil(
+            (exitTime - entryTime) / (1000 * 60 * 60)
+        );
 
-            <article class="book-card">
 
-                <div
-                    class="book-cover"
-                    style="
-                        background:
-                        linear-gradient(
-                            135deg,
-                            ${item.warna}22,
-                            #eeeae2
-                        );
-                    "
-                >
+    if (duration < 1) {
+        duration = 1;
+    }
 
-                    ${buatCover(item)}
+
+    let rate =
+        transaction.vehicle === "Motor"
+            ? 5000
+            : 10000;
+
+
+    let total = duration * rate;
+
+
+    if (transaction.guest === "Menginap") {
+
+        total = 0;
+
+    } else if (transaction.guest === "VIP") {
+
+        total = total * 0.8;
+
+    }
+
+
+    result.className = "payment-card";
+
+    result.innerHTML = `
+
+        <div class="payment-layout">
+
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <div>
+                        <h3>Detail Kendaraan</h3>
+
+                        <p>
+                            ${transaction.ticketCode}
+                        </p>
+                    </div>
+
+                    <span class="status-badge status-active">
+                        Aktif
+                    </span>
 
                 </div>
 
 
-                <div class="book-body">
+                <div class="detail-grid">
 
-                    <div class="book-category">
-                        ${item.kategori}
+                    <div class="detail-item">
+                        <span>Plat Nomor</span>
+                        <strong>
+                            ${transaction.plate}
+                        </strong>
                     </div>
 
-
-                    <h3>
-                        ${item.judul}
-                    </h3>
-
-
-                    <div class="book-author">
-                        ${item.penulis}
+                    <div class="detail-item">
+                        <span>Kendaraan</span>
+                        <strong>
+                            ${transaction.vehicle}
+                        </strong>
                     </div>
 
-
-                    <div class="book-meta">
-
-                        <span>
-                            ${item.tahun}
-                        </span>
-
-                        <span>
-                            ${item.halaman} halaman
-                        </span>
-
-                        <span>
-                            ★ ${item.rating}
-                        </span>
-
+                    <div class="detail-item">
+                        <span>Kategori Tamu</span>
+                        <strong>
+                            ${transaction.guest}
+                        </strong>
                     </div>
 
-
-                    <div
-                        class="${
-                            tersedia
-                            ? "available"
-                            : "unavailable"
-                        }"
-                        style="
-                            margin-top:10px;
-                            font-size:10px;
-                        "
-                    >
-
-                        ${
-                            tersedia
-                            ? `● Tersedia ${item.stok} eksemplar`
-                            : "● Tidak tersedia"
-                        }
-
+                    <div class="detail-item">
+                        <span>Slot Parkir</span>
+                        <strong>
+                            ${transaction.slot}
+                        </strong>
                     </div>
 
+                    <div class="detail-item">
+                        <span>Waktu Masuk</span>
+                        <strong>
+                            ${formatDate(transaction.entryTime)}
+                        </strong>
+                    </div>
 
-                    <div class="book-bottom">
-
-                        <button
-                            class="detail-btn"
-                            onclick="lihatDetail(${item.id})"
-                        >
-                            Detail
-                        </button>
-
-
-                        <button
-                            class="borrow-btn"
-                            onclick="bukaPinjam(${item.id})"
-                            ${!tersedia ? "disabled" : ""}
-                        >
-                            Pinjam
-                        </button>
-
+                    <div class="detail-item">
+                        <span>Durasi</span>
+                        <strong>
+                            ${duration} Jam
+                        </strong>
                     </div>
 
                 </div>
-
-            </article>
-
-        `;
-
-    });
-
-}
-
-
-// =====================================================
-// PENCARIAN
-// =====================================================
-
-function cariBuku() {
-
-    const keyword =
-        document
-        .getElementById("searchInput")
-        .value
-        .trim()
-        .toLowerCase();
-
-
-    if (keyword === "") {
-
-        daftarTampilan = [...buku];
-
-    } else {
-
-        daftarTampilan =
-            buku.filter(item =>
-
-                item.judul
-                    .toLowerCase()
-                    .includes(keyword)
-
-                ||
-
-                item.penulis
-                    .toLowerCase()
-                    .includes(keyword)
-
-                ||
-
-                item.kategori
-                    .toLowerCase()
-                    .includes(keyword)
-
-            );
-
-    }
-
-
-    document.getElementById("catalogTitle").innerText =
-        keyword
-        ? `Hasil pencarian "${keyword}"`
-        : "Koleksi pilihan";
-
-
-    tampilkanBuku(daftarTampilan);
-
-
-    document
-        .getElementById("koleksi")
-        .scrollIntoView({
-            behavior: "smooth"
-        });
-
-}
-
-
-// =====================================================
-// PENCARIAN POPULER
-// =====================================================
-
-function searchPopular(keyword) {
-
-    document.getElementById("searchInput").value =
-        keyword;
-
-    cariBuku();
-
-}
-
-
-// =====================================================
-// FILTER KATEGORI
-// =====================================================
-
-function filterKategori(kategori, tombol = null) {
-
-    if (kategori === "Semua") {
-
-        daftarTampilan = [...buku];
-
-        document.getElementById("catalogTitle").innerText =
-            "Koleksi pilihan";
-
-    } else {
-
-        daftarTampilan =
-            buku.filter(item =>
-                item.kategori.toLowerCase() ===
-                kategori.toLowerCase()
-            );
-
-
-        document.getElementById("catalogTitle").innerText =
-            kategori;
-
-    }
-
-
-    document
-        .querySelectorAll(".category-item")
-        .forEach(item => {
-
-            item.classList.remove("active");
-
-        });
-
-
-    if (tombol) {
-
-        tombol.classList.add("active");
-
-    } else if (kategori === "Semua") {
-
-        document
-            .querySelector(".category-item")
-            .classList.add("active");
-
-    }
-
-
-    tampilkanBuku(daftarTampilan);
-
-
-    document
-        .getElementById("koleksi")
-        .scrollIntoView({
-            behavior: "smooth"
-        });
-
-}
-
-
-// =====================================================
-// SORTIR
-// =====================================================
-
-function urutkanBuku() {
-
-    const pilihan =
-        document.getElementById("sortBook").value;
-
-
-    let hasil =
-        [...daftarTampilan];
-
-
-    if (pilihan === "terbaru") {
-
-        hasil.sort(
-            (a,b) => b.tahun - a.tahun
-        );
-
-    }
-
-
-    if (pilihan === "judul") {
-
-        hasil.sort(
-            (a,b) =>
-                a.judul.localeCompare(b.judul)
-        );
-
-    }
-
-
-    if (pilihan === "penulis") {
-
-        hasil.sort(
-            (a,b) =>
-                a.penulis.localeCompare(b.penulis)
-        );
-
-    }
-
-
-    tampilkanBuku(hasil);
-
-}
-
-
-// =====================================================
-// DETAIL BUKU
-// =====================================================
-
-function lihatDetail(id) {
-
-    const item =
-        buku.find(book => book.id === id);
-
-
-    if (!item) return;
-
-
-    document.getElementById("detailContent").innerHTML = `
-
-        <div class="detail-layout">
-
-            <div
-                class="detail-cover"
-                style="
-                    background:
-                    linear-gradient(
-                        135deg,
-                        ${item.warna}22,
-                        #eeeae2
-                    );
-                "
-            >
-
-                ${buatCover(item)}
 
             </div>
 
 
-            <div>
+            <div class="panel">
 
-                <span class="eyebrow">
-                    ${item.kategori}
-                </span>
+                <div class="payment-total">
 
+                    <small>TOTAL PEMBAYARAN</small>
 
-                <h2>
-                    ${item.judul}
-                </h2>
+                    <h2>
+                        ${formatRupiah(total)}
+                    </h2>
 
+                    <p>
+                        ${duration} jam ×
+                        ${formatRupiah(rate)}
+                    </p>
 
-                <div class="detail-author">
-                    ${item.penulis}
                 </div>
 
 
-                <div style="
-                    color:#987957;
-                    font-size:13px;
+                <label style="
+                    display:block;
+                    font-size:11px;
+                    font-weight:700;
+                    margin-top:20px;
+                    margin-bottom:8px;
                 ">
-                    ★ ${item.rating} / 5
-                </div>
+                    Metode Pembayaran
+                </label>
 
 
-                <p class="detail-description">
-                    ${item.deskripsi}
-                </p>
+                <div class="payment-methods">
 
+                    <button
+                        class="method selected"
+                        data-method="Cash"
+                    >
+                        <span>💵</span>
+                        <strong>Cash</strong>
+                    </button>
 
-                <div class="detail-data">
+                    <button
+                        class="method"
+                        data-method="QRIS"
+                    >
+                        <span>📱</span>
+                        <strong>QRIS</strong>
+                    </button>
 
-                    <div>
-                        Tahun terbit:
-                        <strong>${item.tahun}</strong>
-                    </div>
+                    <button
+                        class="method"
+                        data-method="Card"
+                    >
+                        <span>💳</span>
+                        <strong>Card</strong>
+                    </button>
 
-                    <div>
-                        Halaman:
-                        <strong>${item.halaman}</strong>
-                    </div>
-
-                    <div>
-                        Kategori:
-                        <strong>${item.kategori}</strong>
-                    </div>
-
-                    <div>
-                        Stok:
-                        <strong>${item.stok}</strong>
-                    </div>
+                    <button
+                        class="method"
+                        data-method="Room Charge"
+                    >
+                        <span>🏨</span>
+                        <strong>Room Charge</strong>
+                    </button>
 
                 </div>
 
 
                 <button
-                    class="submit-button"
-                    style="margin-top:20px"
-                    onclick="bukaPinjam(${item.id})"
-                    ${item.stok <= 0 ? "disabled" : ""}
+                    id="processPayment"
+                    class="primary-button"
+                    style="width:100%;"
                 >
-                    Pinjam Buku
+                    ✓ Proses Pembayaran
                 </button>
 
             </div>
@@ -1317,451 +992,696 @@ function lihatDetail(id) {
     `;
 
 
-    document.getElementById("detailModal").style.display =
-        "flex";
+    let selectedMethod = "Cash";
 
-}
 
+    const methods =
+        result.querySelectorAll(".method");
 
-// =====================================================
-// TUTUP DETAIL
-// =====================================================
 
-function tutupDetail() {
+    methods.forEach(method => {
 
-    document.getElementById("detailModal").style.display =
-        "none";
+        method.addEventListener("click", function() {
 
-}
+            methods.forEach(item =>
+                item.classList.remove("selected")
+            );
 
+            this.classList.add("selected");
 
-// =====================================================
-// BUKA FORM PEMINJAMAN
-// =====================================================
-
-function bukaPinjam(id) {
-
-    const item =
-        buku.find(book => book.id === id);
-
-
-    if (!item || item.stok <= 0) {
-
-        alert("Buku tidak tersedia.");
-
-        return;
-
-    }
-
-
-    document.getElementById("borrowBookId").value =
-        id;
-
-
-    document.getElementById("borrowBookName").innerText =
-        item.judul;
-
-
-    const tanggal =
-        new Date();
-
-    tanggal.setDate(
-        tanggal.getDate() + 7
-    );
-
-
-    document.getElementById("returnDate").value =
-        tanggal.toISOString().split("T")[0];
-
-
-    document.getElementById("borrowModal").style.display =
-        "flex";
-
-}
-
-
-// =====================================================
-// TUTUP PINJAM
-// =====================================================
-
-function tutupPinjam() {
-
-    document.getElementById("borrowModal").style.display =
-        "none";
-
-}
-
-
-// =====================================================
-// PROSES PEMINJAMAN
-// =====================================================
-
-function prosesPeminjaman(event) {
-
-    event.preventDefault();
-
-
-    const id =
-        Number(
-            document.getElementById("borrowBookId").value
-        );
-
-
-    const nama =
-        document.getElementById("borrowName").value;
-
-
-    const kelas =
-        document.getElementById("borrowClass").value;
-
-
-    const tanggal =
-        document.getElementById("returnDate").value;
-
-
-    const item =
-        buku.find(book => book.id === id);
-
-
-    if (!item || item.stok <= 0) {
-
-        alert("Buku tidak tersedia.");
-
-        return;
-
-    }
-
-
-    const data = {
-
-        idPeminjaman: Date.now(),
-
-        bukuId: id,
-
-        judul: item.judul,
-
-        nama: nama,
-
-        kelas: kelas,
-
-        tanggalKembali: tanggal
-
-    };
-
-
-    peminjaman.push(data);
-
-
-    item.stok--;
-
-
-    localStorage.setItem(
-        "ruangBacaPeminjaman",
-        JSON.stringify(peminjaman)
-    );
-
-
-    alert(
-        "Peminjaman buku berhasil dicatat."
-    );
-
-
-    document.querySelector(
-        "#borrowModal form"
-    ).reset();
-
-
-    tutupPinjam();
-
-    tutupDetail();
-
-
-    tampilkanBuku(daftarTampilan);
-
-    updateStatistik();
-
-}
-
-
-// =====================================================
-// LIHAT PEMINJAMAN
-// =====================================================
-
-function lihatPeminjaman() {
-
-    const container =
-        document.getElementById("historyContent");
-
-
-    if (peminjaman.length === 0) {
-
-        container.innerHTML = `
-
-            <div style="
-                text-align:center;
-                padding:45px 10px;
-                color:#888;
-            ">
-
-                <div style="
-                    font-size:45px;
-                    margin-bottom:10px;
-                ">
-                    📚
-                </div>
-
-                <p>
-                    Belum ada buku yang dipinjam.
-                </p>
-
-            </div>
-
-        `;
-
-    } else {
-
-        container.innerHTML = "";
-
-
-        peminjaman.forEach(item => {
-
-            container.innerHTML += `
-
-                <div class="history-item">
-
-                    <div>
-
-                        <h3>
-                            ${item.judul}
-                        </h3>
-
-                        <p>
-                            Peminjam:
-                            ${item.nama}
-                        </p>
-
-                        <p>
-                            Kelas:
-                            ${item.kelas}
-                        </p>
-
-                        <p>
-                            Dikembalikan:
-                            ${formatTanggal(
-                                item.tanggalKembali
-                            )}
-                        </p>
-
-                    </div>
-
-
-                    <button
-                        class="return-button"
-                        onclick="
-                            kembalikanBuku(
-                                ${item.idPeminjaman}
-                            )
-                        "
-                    >
-                        Kembalikan
-                    </button>
-
-                </div>
-
-            `;
+            selectedMethod =
+                this.dataset.method;
 
         });
 
-    }
+    });
 
 
-    document.getElementById("historyModal").style.display =
-        "flex";
+    document
+        .getElementById("processPayment")
+        .addEventListener(
+            "click",
+            function() {
 
-}
+                processPayment(
+                    transaction.id,
+                    duration,
+                    total,
+                    selectedMethod
+                );
 
-
-// =====================================================
-// KEMBALIKAN BUKU
-// =====================================================
-
-function kembalikanBuku(id) {
-
-    const index =
-        peminjaman.findIndex(
-            item =>
-                item.idPeminjaman === id
-        );
-
-
-    if (index === -1) return;
-
-
-    const data =
-        peminjaman[index];
-
-
-    const item =
-        buku.find(
-            book =>
-                book.id === data.bukuId
-        );
-
-
-    if (item) {
-
-        item.stok++;
-
-    }
-
-
-    peminjaman.splice(index,1);
-
-
-    localStorage.setItem(
-        "ruangBacaPeminjaman",
-        JSON.stringify(peminjaman)
-    );
-
-
-    alert(
-        "Buku berhasil dikembalikan."
-    );
-
-
-    lihatPeminjaman();
-
-    tampilkanBuku(daftarTampilan);
-
-    updateStatistik();
-
-}
-
-
-// =====================================================
-// TUTUP HISTORY
-// =====================================================
-
-function tutupHistory() {
-
-    document.getElementById("historyModal").style.display =
-        "none";
-
-}
-
-
-// =====================================================
-// FORMAT TANGGAL
-// =====================================================
-
-function formatTanggal(tanggal) {
-
-    return new Date(tanggal)
-        .toLocaleDateString(
-            "id-ID",
-            {
-                day: "numeric",
-                month: "long",
-                year: "numeric"
             }
         );
 
 }
 
 
-// =====================================================
-// STATISTIK
-// =====================================================
+/* ================= PROSES PEMBAYARAN ================= */
 
-function updateStatistik() {
+function processPayment(
+    transactionId,
+    duration,
+    total,
+    paymentMethod
+) {
 
-    const kategori =
-        new Set(
-            buku.map(item => item.kategori)
+    const transaction =
+        transactions.find(
+            item => item.id === transactionId
         );
 
 
-    const penulis =
-        new Set(
-            buku.map(item => item.penulis)
-        );
+    if (!transaction) {
+        return;
+    }
 
 
-    const tersedia =
-        buku.reduce(
-            (total,item) =>
-                total + item.stok,
-            0
-        );
+    transaction.exitTime =
+        new Date().toISOString();
+
+    transaction.duration =
+        duration;
+
+    transaction.total =
+        total;
+
+    transaction.paymentMethod =
+        paymentMethod;
+
+    transaction.status =
+        "paid";
 
 
-    document.getElementById("totalBuku").innerText =
-        buku.length;
+    saveTransactions();
 
 
-    document.getElementById("totalKategori").innerText =
-        kategori.size;
+    showToast(
+        "Pembayaran Berhasil",
+        `Pembayaran ${formatRupiah(total)} melalui ${paymentMethod}.`,
+        "✓"
+    );
 
 
-    document.getElementById("totalPenulis").innerText =
-        penulis.size;
+    document.getElementById("paymentResult")
+        .innerHTML = `
+
+        <div class="panel">
+
+            <div style="
+                text-align:center;
+                padding:35px;
+            ">
+
+                <div style="
+                    width:65px;
+                    height:65px;
+                    margin:auto;
+                    border-radius:50%;
+                    display:flex;
+                    align-items:center;
+                    justify-content:center;
+                    background:#dcfce7;
+                    color:#16a34a;
+                    font-size:30px;
+                ">
+                    ✓
+                </div>
+
+                <h2 style="
+                    margin-top:15px;
+                    color:#0f172a;
+                ">
+                    Pembayaran Berhasil
+                </h2>
+
+                <p style="
+                    margin-top:7px;
+                    color:#64748b;
+                    font-size:11px;
+                ">
+                    Kendaraan dapat keluar dari area parkir.
+                </p>
 
 
-    document.getElementById("totalTersedia").innerText =
-        tersedia;
+                <div style="
+                    max-width:400px;
+                    margin:20px auto;
+                    padding:18px;
+                    border-radius:12px;
+                    background:#f8fafc;
+                ">
+
+                    <strong>
+                        ${transaction.ticketCode}
+                    </strong>
+
+                    <p style="
+                        margin-top:8px;
+                        font-size:11px;
+                    ">
+                        Total: ${formatRupiah(total)}
+                    </p>
+
+                    <p style="
+                        margin-top:4px;
+                        font-size:11px;
+                    ">
+                        Metode: ${paymentMethod}
+                    </p>
+
+                </div>
+
+                <button
+                    class="primary-button"
+                    onclick="navigateTo('dashboard')"
+                >
+                    Kembali ke Dashboard
+                </button>
+
+            </div>
+
+        </div>
+
+    `;
 
 
-    document.getElementById("countSemua").innerText =
-        buku.length;
+    updateDashboard();
 
 }
 
 
-// =====================================================
-// MODAL CLICK OUTSIDE
-// =====================================================
+/* ================= DASHBOARD UPDATE ================= */
 
-window.addEventListener(
-    "click",
-    function(event) {
+function updateDashboard() {
 
-        if (
-            event.target ===
-            document.getElementById("detailModal")
-        ) {
+    const totalVehicles =
+        transactions.length;
 
-            tutupDetail();
+    const activeParking =
+        transactions.filter(
+            item => item.status === "active"
+        ).length;
 
-        }
+    const totalIncome =
+        transactions.reduce(
+            (sum, item) =>
+                sum + Number(item.total || 0),
+            0
+        );
 
-
-        if (
-            event.target ===
-            document.getElementById("borrowModal")
-        ) {
-
-            tutupPinjam();
-
-        }
+    document.getElementById(
+        "totalVehicles"
+    ).textContent = totalVehicles;
 
 
-        if (
-            event.target ===
-            document.getElementById("historyModal")
-        ) {
+    document.getElementById(
+        "activeParking"
+    ).textContent = activeParking;
 
-            tutupHistory();
 
-        }
+    document.getElementById(
+        "totalIncome"
+    ).textContent =
+        formatRupiah(totalIncome);
+
+
+    document.getElementById(
+        "totalTransactions"
+    ).textContent = totalVehicles;
+
+
+    renderParkingStatus();
+
+    renderRecentTransactions();
+
+}
+
+
+/* ================= TRANSAKSI TERBARU ================= */
+
+function renderRecentTransactions() {
+
+    const tbody =
+        document.getElementById(
+            "recentTransactions"
+        );
+
+    tbody.innerHTML = "";
+
+
+    const recent =
+        transactions.slice(0, 5);
+
+
+    if (recent.length === 0) {
+
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="5"
+                    style="
+                        text-align:center;
+                        color:#94a3b8;
+                        padding:30px;
+                    "
+                >
+                    Belum ada transaksi.
+                </td>
+            </tr>
+        `;
+
+        return;
+    }
+
+
+    recent.forEach(transaction => {
+
+        const row =
+            document.createElement("tr");
+
+
+        row.innerHTML = `
+
+            <td>
+                <strong>
+                    ${transaction.ticketCode}
+                </strong>
+            </td>
+
+            <td>
+                ${transaction.plate}
+            </td>
+
+            <td>
+                ${transaction.vehicle}
+            </td>
+
+            <td>
+                ${formatDate(transaction.entryTime)}
+            </td>
+
+            <td>
+
+                <span class="
+                    status-badge
+                    ${
+                        transaction.status === "paid"
+                            ? "status-paid"
+                            : "status-active"
+                    }
+                ">
+
+                    ${
+                        transaction.status === "paid"
+                            ? "Sudah Bayar"
+                            : "Aktif"
+                    }
+
+                </span>
+
+            </td>
+
+        `;
+
+
+        tbody.appendChild(row);
+
+    });
+
+}
+
+
+/* ================= HISTORY ================= */
+
+function renderHistory() {
+
+    const search =
+        document
+            .getElementById("historySearch")
+            .value
+            .trim()
+            .toUpperCase();
+
+
+    const filter =
+        document
+            .getElementById("historyFilter")
+            .value;
+
+
+    let data = [...transactions];
+
+
+    if (search) {
+
+        data = data.filter(item =>
+
+            item.ticketCode
+                .toUpperCase()
+                .includes(search)
+
+            ||
+
+            item.plate
+                .toUpperCase()
+                .includes(search)
+
+        );
 
     }
-);
 
 
-// =====================================================
-// START WEBSITE
-// =====================================================
+    if (filter !== "all") {
 
-tampilkanBuku(buku);
+        data =
+            data.filter(item =>
+                item.status === filter
+            );
 
-updateStatistik();
+    }
+
+
+    const tbody =
+        document.getElementById(
+            "historyTableBody"
+        );
+
+    tbody.innerHTML = "";
+
+
+    if (data.length === 0) {
+
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="10"
+                    style="
+                        text-align:center;
+                        padding:35px;
+                        color:#94a3b8;
+                    "
+                >
+                    Tidak ada data transaksi.
+                </td>
+            </tr>
+        `;
+
+    } else {
+
+        data.forEach((item, index) => {
+
+            const row =
+                document.createElement("tr");
+
+
+            row.innerHTML = `
+
+                <td>${index + 1}</td>
+
+                <td>
+                    <strong>
+                        ${item.ticketCode}
+                    </strong>
+                </td>
+
+                <td>${item.plate}</td>
+
+                <td>${item.vehicle}</td>
+
+                <td>${item.guest}</td>
+
+                <td>${item.slot}</td>
+
+                <td>
+                    ${formatDate(item.entryTime)}
+                </td>
+
+                <td>
+                    ${
+                        item.exitTime
+                            ? formatDate(item.exitTime)
+                            : "-"
+                    }
+                </td>
+
+                <td>
+                    ${formatRupiah(item.total || 0)}
+                </td>
+
+                <td>
+
+                    <span class="
+                        status-badge
+                        ${
+                            item.status === "paid"
+                                ? "status-paid"
+                                : "status-active"
+                        }
+                    ">
+
+                        ${
+                            item.status === "paid"
+                                ? "Sudah Bayar"
+                                : "Aktif"
+                        }
+
+                    </span>
+
+                </td>
+
+            `;
+
+
+            tbody.appendChild(row);
+
+        });
+
+    }
+
+
+    updateHistoryStats();
+
+}
+
+
+/* ================= HISTORY SEARCH ================= */
+
+document
+    .getElementById("historySearch")
+    .addEventListener(
+        "input",
+        renderHistory
+    );
+
+
+document
+    .getElementById("historyFilter")
+    .addEventListener(
+        "change",
+        renderHistory
+    );
+
+
+/* ================= HISTORY STATISTIK ================= */
+
+function updateHistoryStats() {
+
+    const total =
+        transactions.length;
+
+
+    const paid =
+        transactions.filter(
+            item => item.status === "paid"
+        ).length;
+
+
+    const unpaid =
+        transactions.filter(
+            item => item.status === "active"
+        ).length;
+
+
+    const income =
+        transactions.reduce(
+            (sum, item) =>
+                sum + Number(item.total || 0),
+            0
+        );
+
+
+    document.getElementById(
+        "historyTotal"
+    ).textContent = total;
+
+
+    document.getElementById(
+        "historyPaid"
+    ).textContent = paid;
+
+
+    document.getElementById(
+        "historyUnpaid"
+    ).textContent = unpaid;
+
+
+    document.getElementById(
+        "historyIncome"
+    ).textContent =
+        formatRupiah(income);
+
+}
+
+
+/* ================= EXPORT EXCEL ================= */
+
+document
+    .getElementById("exportExcel")
+    .addEventListener(
+        "click",
+        exportToExcel
+    );
+
+
+function exportToExcel() {
+
+    if (transactions.length === 0) {
+
+        showToast(
+            "Tidak Ada Data",
+            "Belum ada transaksi untuk diexport.",
+            "!"
+        );
+
+        return;
+
+    }
+
+
+    const excelData =
+        transactions.map(
+            (item, index) => ({
+
+                "No":
+                    index + 1,
+
+                "Kode Tiket":
+                    item.ticketCode,
+
+                "Plat Nomor":
+                    item.plate,
+
+                "Kendaraan":
+                    item.vehicle,
+
+                "Kategori Tamu":
+                    item.guest,
+
+                "Slot Parkir":
+                    item.slot,
+
+                "Waktu Masuk":
+                    formatDate(item.entryTime),
+
+                "Waktu Keluar":
+                    item.exitTime
+                        ? formatDate(item.exitTime)
+                        : "-",
+
+                "Durasi":
+                    item.duration
+                        ? `${item.duration} Jam`
+                        : "-",
+
+                "Total":
+                    item.total || 0,
+
+                "Metode Pembayaran":
+                    item.paymentMethod || "-",
+
+                "Status":
+                    item.status === "paid"
+                        ? "Sudah Bayar"
+                        : "Aktif"
+
+            })
+        );
+
+
+    const worksheet =
+        XLSX.utils.json_to_sheet(
+            excelData
+        );
+
+
+    const workbook =
+        XLSX.utils.book_new();
+
+
+    XLSX.utils.book_append_sheet(
+        workbook,
+        worksheet,
+        "Riwayat Parkir"
+    );
+
+
+    XLSX.writeFile(
+        workbook,
+        "Riwayat_Transaksi_Hotel_Erlang.xlsx"
+    );
+
+
+    showToast(
+        "Export Berhasil",
+        "File Excel berhasil dibuat.",
+        "✓"
+    );
+
+}
+
+
+/* ================= TOAST ================= */
+
+let toastTimeout;
+
+
+function showToast(
+    title,
+    message,
+    icon = "✓"
+) {
+
+    const toast =
+        document.getElementById("toast");
+
+    document.getElementById(
+        "toastTitle"
+    ).textContent = title;
+
+    document.getElementById(
+        "toastMessage"
+    ).textContent = message;
+
+    document.getElementById(
+        "toastIcon"
+    ).textContent = icon;
+
+
+    toast.classList.add("show");
+
+
+    clearTimeout(toastTimeout);
+
+
+    toastTimeout =
+        setTimeout(() => {
+
+            toast.classList.remove("show");
+
+        }, 3500);
+
+}
+
+
+/* ================= INISIALISASI ================= */
+
+renderRentalSlots();
+updateDashboard();
